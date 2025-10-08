@@ -1,0 +1,7 @@
+theme: jekyll-theme-dinky
+remote_theme: pages-themes/dinky@v0.2.0
+title: Explanation Faithfulness Evaluation Measures Ontology
+description: An ontology for organizing and recommending measures for evaluating the faithfulness of AI explanations
+show_downloads: false
+plugins:
+- jekyll-remote-theme
