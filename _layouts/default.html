@@ -1,30 +1,81 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<!doctype html>
+<html lang="{{ site.lang | default: "en-US" }}">
 
-  {% include head.html %}
+{%- comment -%}
+  Debug messages will be renedered if this is true
+  Use this to debug issues on the GitHub Pages site.
+{%- endcomment -%}
+assign debug_mode = false
 
-  <body class="theme-base-0e">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    {% include sidebar.html %}
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+  <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="icon"
+      type="image/png"
+      href="{{'/images/twc_logo.png' | relative_url}}">
+  <title>Explanation Faithfulness Measures Ontology</title>
+  <div class="w3-container top" style="background-image: linear-gradient(180deg, rgb(255, 0, 0), #000000);">
+    <br>
+    <br>
+    <span style="display: contents;">
+      <h1 class="header" style="text-align:center;">
+        <img src="{{site.baseurl}}/images/twc_logo.png"
+          style="float: left; clear: left; display:inline-block; background: black;" alt="star">
+        <img src="{{site.baseurl}}/images/rpi_logo.png" alt="star"
+          style="float: right; clear: right; display:inline-block; background: white;" alt="star">
+      </h1>
+    </span>
+      <h1 class="header title">
+        {{ site.title | default: site.github.repository_name }}
+      </h1>
+      <p class="header title">
+        {{ site.description | default: site.github.project_tagline }}
+      </p>
+    <br>
+    <br>
+  </div>
+</head>
 
-    <div class="content container" style="max-width: fit-content;">
+<body>
+  <div class="wrapper">
+    <header class="steelblue">
+      {%- comment -%} Project Page Menu {%- endcomment -%}
+        <h1 class="header">{{active_project.name}}</h1>
+        <ul class="nav-menu">
+          {% for item in active_year.project_nav %}
+            {% if item.section %}
+        </ul>
+        <p class="section">{{ item.section }}</p>
+        <ul class="nav-menu">
+            {% else %}
+              {% assign page_path = active_project_path | append: '/' | append: item.path %}
+              <li class="nav-link">
+                <a href="{{page_path}}">{{item.name}}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+    </header>
+
+    <section>
+      {% if page.toc %}
+        <div class="toc">
+          <strong>Contents</strong>
+          {% include toc.html html=content %}
+        </div>
+      {% endif %}
       {{ content }}
-    </div>
-  <script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
+    </section>
 
-    for (i = 0; i < coll.length; i++) {
-      coll[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.maxHeight){
-          content.style.maxHeight = null;
-        } else {
-          content.style.maxHeight = content.scrollHeight + "px";
-        } 
-      });
-    }
-</script>
-  </body>
+    <footer>
+      <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+    </footer>
+  </div>
+</body>
+
 </html>
