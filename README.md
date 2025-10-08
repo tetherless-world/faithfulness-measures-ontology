@@ -1,4 +1,4 @@
 # faithfulness-measures-ontology
 
-Please view the current website <wherever_it_ends_up_being> for the latest project updates.
+Please view the current website [https://tetherless-world.github.io/faithfulness-measures-ontology/] for the latest project updates.
 
