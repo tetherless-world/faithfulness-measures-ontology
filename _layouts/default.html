@@ -1,12 +1,6 @@
 <!doctype html>
 <html lang="{{ site.lang | default: "en-US" }}">
 
-{%- comment -%}
-  Debug messages will be renedered if this is true
-  Use this to debug issues on the GitHub Pages site.
-{%- endcomment -%}
-assign debug_mode = false
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,22 +36,22 @@ assign debug_mode = false
 <body>
   <div class="wrapper">
     <header class="sagegreen">
-        <h1 class="header">FMO Project</h1>
+        <h1 class="header", style="background:#000000">FMO Project</h1>
         <ul class="nav-menu">
           <li class="nav-link">
-            <a href="{{index.md}}">{{About Project}}</a>
+            <a href="{{index}}">{{About Project}}</a>
           </li>
         </ul>
         <p class="section">{{Design}}</p>
         <ul class="nav-menu">
           <li class="nav-link">
-            <a href="{{usecase.md}}">{{Use Case}}</a>
+            <a href="{{usecase}}">{{Use Case}}</a>
           </li>
         </ul>
         <p class="section">{{Resources}}</p>
         <ul class="nav-menu">
           <li class="nav-link">
-            <a href="{{pres.md}}">{{Presentations}}</a>
+            <a href="{{pres}}">{{Presentations}}</a>
           </li>
         </ul>
     </header>
