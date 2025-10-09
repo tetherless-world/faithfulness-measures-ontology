@@ -25,9 +25,7 @@ assign debug_mode = false
     <span style="display: contents;">
       <h1 class="header" style="text-align:center;">
         <img src="{{site.baseurl}}/images/twc_logo.png"
-          style="float: left; clear: left; display:inline-block; background: black;" alt="star">
-        <img src="{{site.baseurl}}/images/rpi_logo.png" alt="star"
-          style="float: right; clear: right; display:inline-block; background: white;" alt="star">
+          style="float: left; clear: left; display:inline-block; background: black; height: 20%; width: auto" alt="star">
       </h1>
     </span>
       <h1 class="header title">
@@ -43,22 +41,24 @@ assign debug_mode = false
 
 <body>
   <div class="wrapper">
-    <header class="steelblue">
-      {%- comment -%} Project Page Menu {%- endcomment -%}
-        <h1 class="header">{{active_project.name}}</h1>
+    <header class="sagegreen">
+        <h1 class="header">FMO Project</h1>
         <ul class="nav-menu">
-          {% for item in active_year.project_nav %}
-            {% if item.section %}
+          <li class="nav-link">
+            <a href="{{index.md}}">{{About Project}}</a>
+          </li>
         </ul>
-        <p class="section">{{ item.section }}</p>
+        <p class="section">{{Design}}</p>
         <ul class="nav-menu">
-            {% else %}
-              {% assign page_path = active_project_path | append: '/' | append: item.path %}
-              <li class="nav-link">
-                <a href="{{page_path}}">{{item.name}}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
+          <li class="nav-link">
+            <a href="{{usecase.md}}">{{Use Case}}</a>
+          </li>
+        </ul>
+        <p class="section">{{Resources}}</p>
+        <ul class="nav-menu">
+          <li class="nav-link">
+            <a href="{{pres.md}}">{{Presentations}}</a>
+          </li>
         </ul>
     </header>
 

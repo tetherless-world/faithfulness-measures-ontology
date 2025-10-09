@@ -34,7 +34,7 @@ header {
     font-size: 25px;
   }
 
-  ul.nav-menu {
+  ul.nav-menu { 
     margin-right: 0;
     padding-right: 22px;
     margin-bottom: 10px;
@@ -85,6 +85,10 @@ li.no-highlight{
   background-color: #4682B4;
 }
 
+.sagegreen {
+  background-color: #497c31;
+}
+
 .sub-menu {
   padding-left: 10px;
 }
@@ -92,7 +96,7 @@ li.no-highlight{
 .header {
   &.title {
     text-align: center;
-    box-shadow: inset 0 0 0 2000px rgba(200, 247, 197, 0.8);
+    box-shadow: inset 0 0 0 2000px rgb(183, 183, 183);
   }
 }
 

@@ -3,7 +3,7 @@ layout: default
 title: Faithfulness Measures Ontology
 ---
 
-[Abstract](#abstract) | [Resources](#resources) | [Team](#contributors) | [Publications](#publications)
+[Abstract](#Abstract) | [Resources](#List of Resources) | [Team](#Team) | [Publications](#Publications)
 
 <h1 class="page-title" style="text-transform:uppercase;" id="header">Faithfulness Measures Ontology</h1>
 
