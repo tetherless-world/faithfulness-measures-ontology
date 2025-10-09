@@ -22,7 +22,7 @@ $header-total-width: $header-width + $header-left-pad + $header-right-pad;
 }
 
 div.wrapper {
-  width: 615px + $header-total-width
+  width: 715px + $header-total-width
 }
 
 header {
@@ -32,6 +32,10 @@ header {
 
   h1.header {
     font-size: 25px;
+  }
+
+  h2.header {
+    font-size: 20px;
   }
 
   ul.nav-menu { 
