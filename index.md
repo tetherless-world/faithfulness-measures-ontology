@@ -31,7 +31,7 @@ Therefore this project will develop such as ontology. For this project, the meas
     </tr>  
     <tr>
         <td>Use Case</td>
-        <td><!-- TODO ---></td> 
+        <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/usecase">Use Case Page</a></td> 
     </tr>
 </table>
 

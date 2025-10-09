@@ -37,32 +37,13 @@
   <div class="wrapper">
     <header class="sagegreen">
         <h1 class="header", style="background:#000000">FMO Project</h1>
-        <ul class="nav-menu">
-          <li class="nav-link">
-            <a href="{{index}}">{{About Project}}</a>
-          </li>
-        </ul>
-        <p class="section">{{Design}}</p>
-        <ul class="nav-menu">
-          <li class="nav-link">
-            <a href="{{usecase}}">{{Use Case}}</a>
-          </li>
-        </ul>
-        <p class="section">{{Resources}}</p>
-        <ul class="nav-menu">
-          <li class="nav-link">
-            <a href="{{pres}}">{{Presentations}}</a>
-          </li>
-        </ul>
     </header>
 
     <section>
-      {% if page.toc %}
         <div class="toc">
           <strong>Contents</strong>
           {% include toc.html html=content %}
         </div>
-      {% endif %}
       {{ content }}
     </section>
 
@@ -71,5 +52,25 @@
     </footer>
   </div>
 </body>
+
+<!--
+        <ul class="nav-menu">
+          <li class="nav-link">
+            <a href="https://tetherless-world.github.io/faithfulness-measures-ontology">{{About the Project}}</a>
+          </li>
+        </ul>
+        <p class="section">{{Design}}</p>
+        <ul class="nav-menu">
+          <li class="nav-link">
+            <a href="https://tetherless-world.github.io/faithfulness-measures-ontology/usecase">{{Use Case}}</a>
+          </li>
+        </ul>
+        <p class="section">{{Resources}}</p>
+        <ul class="nav-menu">
+          <li class="nav-link">
+            <a href="https://tetherless-world.github.io/faithfulness-measures-ontology/pres">{{Presentations}}</a>
+          </li>
+        </ul>
+-->
 
 </html>
