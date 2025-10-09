@@ -7,7 +7,7 @@ title: Faithfulness Measures Ontology
 
 <p class="message">A website to track the progress of the Explanation Faithfulness Measures Ontology project.</p>
 
-## Abstract
+## Overview
 
 As artificial intelligence systems, especially large language models, gain popularity there is an increased desire to trust these systems. One common method to increase trust is to provide explanations. These explanations provide information about the system’s workings and the knowledge used in its general reasoning processes or the processes behind a specific decision [1]. However, ensuring that these explanations are faithful, that they accurately represent that reasoning process, is a difficult and ongoing task [2]. Over 60 measures have been proposed in the last 5 years to quantify how faithful an explanation is, but it is difficult to compare them to decide which one is most appropriate for a given use case.
 
