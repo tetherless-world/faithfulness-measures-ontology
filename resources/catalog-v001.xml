@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="https://www.omg.org/spec/Commons/20230801/Documents/" uri="https://www.omg.org/spec/Commons/Documents"/>
+    <uri id="Imports Wizard Entry" name="https://www.omg.org/spec/Commons/20221101/Identifiers/" uri="https://www.omg.org/spec/Commons/Identifiers/"/>
+    <uri id="Imports Wizard Entry" name="https://www.omg.org/spec/Commons/20221101/Collections/" uri="https://www.omg.org/spec/Commons/Collections/"/>
+    <uri id="Imports Wizard Entry" name="https://www.omg.org/spec/Commons/20221101/AnnotationVocabulary/" uri="https://www.omg.org/spec/Commons/AnnotationVocabulary/"/>
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1764517508353" name="http://www.semanticweb.org/villad4/ontologies/efemo/" uri="efemo.rdf"/>
+    </group>
+</catalog>
