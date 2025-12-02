@@ -3,7 +3,7 @@ layout: default
 title: Faithfulness Measures Ontology
 ---
 
-<h1 class="page-title" style="text-transform:uppercase;" id="header">Faithfulness Measures Ontology</h1>
+<h1 class="page-title" style="text-transform:uppercase;" id="header">Explanation Faithfulness Evaluation Measures Ontology</h1>
 
 <p class="message">A website to track the progress of the Explanation Faithfulness Evaluation Measures Ontology project.</p>
 
@@ -34,6 +34,10 @@ Therefore this project will develop such as ontology. For this project, the meas
     <tr>
         <td>Term List</td>
         <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/terms">Terminology Page</a></td> 
+    </tr>
+    <tr>
+        <td>Ontology Overview</td>
+        <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/ontology">Ontology Page</a></td> 
     </tr>
 </table>
 
