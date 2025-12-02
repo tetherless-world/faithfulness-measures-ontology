@@ -365,6 +365,9 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</AnnotationVocabulary:directSource>
 	</owl:Class>
 	
+	<swrl:Variable rdf:about="&efemo;access">
+	</swrl:Variable>
+	
 	<owl:Class rdf:about="&efemo;access_the_classifier_method">
 		<rdfs:subClassOf rdf:resource="&efemo;Human_Based_Evaluation_Method"/>
 		<rdfs:subClassOf rdf:resource="&efemo;Predictive_Power_Evaluation_Method"/>
@@ -597,6 +600,9 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:adaptedFrom>Bastings, J., &amp; Filippova, K. (2020). The elephant in the interpretability room: Why use attention as explanation when we have saliency methods?. arXiv preprint arXiv:2010.05607.</AnnotationVocabulary:adaptedFrom>
 	</owl:NamedIndividual>
 	
+	<swrl:Variable rdf:about="&efemo;gran">
+	</swrl:Variable>
+	
 	<owl:ObjectProperty rdf:about="&efemo;has_granularity">
 		<rdfs:label>Has Granularity</rdfs:label>
 		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
@@ -738,6 +744,9 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
 	
+	<swrl:Variable rdf:about="&efemo;mod">
+	</swrl:Variable>
+	
 	<owl:NamedIndividual rdf:about="&efemo;model_agnostic">
 		<rdf:type rdf:resource="&efemo;Model_Specificity"/>
 		<rdfs:label>Model Agnostic</rdfs:label>
@@ -860,6 +869,9 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:adaptedFrom>Bastings, J., &amp; Filippova, K. (2020). The elephant in the interpretability room: Why use attention as explanation when we have saliency methods?. arXiv preprint arXiv:2010.05607.</AnnotationVocabulary:adaptedFrom>
 	</owl:NamedIndividual>
 	
+	<swrl:Variable rdf:about="&efemo;proxy">
+	</swrl:Variable>
+	
 	<owl:ObjectProperty rdf:about="&efemo;requires_access_level">
 		<rdfs:label>Requires Access Level</rdfs:label>
 		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
@@ -952,6 +964,9 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Zhou, J., Gandomi, A. H., Chen, F., &amp; Holzinger, A. (2021). Evaluating the quality of machine learning explanations: A survey on methods and metrics. Electronics, 10(5), 593.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
 	
+	<swrl:Variable rdf:about="&efemo;spec">
+	</swrl:Variable>
+	
 	<owl:Class rdf:about="&efemo;stability_evaluation_method">
 		<rdfs:subClassOf rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
 		<rdfs:label>Stability Evaluation Method</rdfs:label>
@@ -980,6 +995,15 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:range rdf:resource="&efemo;Evaluation_Method"/>
 		<skos:definition>Specifies an evaluation method used by the faithfulness measure</skos:definition>
 	</owl:ObjectProperty>
+	
+	<swrl:Variable rdf:about="&efemo;x">
+	</swrl:Variable>
+	
+	<swrl:Variable rdf:about="&efemo;y">
+	</swrl:Variable>
+	
+	<swrl:Variable rdf:about="&efemo;z">
+	</swrl:Variable>
 	
 	<swrl:Variable rdf:about="&ontologies;em">
 	</swrl:Variable>
@@ -1124,6 +1148,82 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 				<swrl:argument1 rdf:resource="&ontologies;fm"/>
 				<swrl:argument2 rdf:resource="&efemo;model_corollary_1"/>
 				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
+			</swrl:IndividualPropertyAtom>
+		</swrl:head>
+	</swrl:Imp>
+	<swrl:Imp>
+		<rdfs:label>Similar Faithfulness Measures</rdfs:label>
+		<rdfs:comment>Cannot currently check evaluation method and assumption similarity</rdfs:comment>
+		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
+		<swrl:body rdf:parseType="Collection">
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="&efemo;x"/>
+				<swrl:classPredicate rdf:resource="&efemo;Faithfulness_Measure"/>
+			</swrl:ClassAtom>
+			<swrl:ClassAtom>
+				<swrl:argument1 rdf:resource="&efemo;y"/>
+				<swrl:classPredicate rdf:resource="&efemo;Faithfulness_Measure"/>
+			</swrl:ClassAtom>
+			<swrl:DifferentIndividualsAtom>
+				<swrl:argument1 rdf:resource="&efemo;y"/>
+				<swrl:argument2 rdf:resource="&efemo;z"/>
+			</swrl:DifferentIndividualsAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;x"/>
+				<swrl:argument2 rdf:resource="&efemo;proxy"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;y"/>
+				<swrl:argument2 rdf:resource="&efemo;proxy"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;x"/>
+				<swrl:argument2 rdf:resource="&efemo;mod"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;evaluates_modality"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;y"/>
+				<swrl:argument2 rdf:resource="&efemo;mod"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;evaluates_modality"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;x"/>
+				<swrl:argument2 rdf:resource="&efemo;gran"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;has_granularity"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;y"/>
+				<swrl:argument2 rdf:resource="&efemo;gran"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;has_granularity"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;x"/>
+				<swrl:argument2 rdf:resource="&efemo;spec"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;has_model_specificity"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;y"/>
+				<swrl:argument2 rdf:resource="&efemo;spec"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;has_model_specificity"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;x"/>
+				<swrl:argument2 rdf:resource="&efemo;access"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
+			</swrl:IndividualPropertyAtom>
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;y"/>
+				<swrl:argument2 rdf:resource="&efemo;access"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
+			</swrl:IndividualPropertyAtom>
+		</swrl:body>
+		<swrl:head rdf:parseType="Collection">
+			<swrl:IndividualPropertyAtom>
+				<swrl:argument1 rdf:resource="&efemo;x"/>
+				<swrl:argument2 rdf:resource="&efemo;y"/>
+				<swrl:propertyPredicate rdf:resource="&efemo;similar_measure_to"/>
 			</swrl:IndividualPropertyAtom>
 		</swrl:head>
 	</swrl:Imp>

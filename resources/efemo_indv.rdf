@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rdf:RDF [
 	<!ENTITY AnnotationVocabulary "https://www.omg.org/spec/Commons/AnnotationVocabulary/">
+	<!ENTITY Designators "https://www.omg.org/spec/Commons/Designators/">
+	<!ENTITY Identifiers "https://www.omg.org/spec/Commons/Identifiers/">
 	<!ENTITY dc "http://purl.org/dc/elements/1.1/">
+	<!ENTITY efemo "http://www.semanticweb.org/villad4/ontologies/efemo#">
 	<!ENTITY ontologies "http://www.semanticweb.org/villad4/ontologies/">
 	<!ENTITY owl "http://www.w3.org/2002/07/owl#">
 	<!ENTITY prov "http://www.w3.org/ns/prov#">
@@ -14,7 +17,10 @@
 ]>
 <rdf:RDF xml:base="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv"
 	xmlns:AnnotationVocabulary="https://www.omg.org/spec/Commons/AnnotationVocabulary/"
+	xmlns:Designators="https://www.omg.org/spec/Commons/Designators/"
+	xmlns:Identifiers="https://www.omg.org/spec/Commons/Identifiers/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:efemo="http://www.semanticweb.org/villad4/ontologies/efemo#"
 	xmlns:ontologies="http://www.semanticweb.org/villad4/ontologies/"
 	xmlns:owl="http://www.w3.org/2002/07/owl#"
 	xmlns:prov="http://www.w3.org/ns/prov#"
@@ -31,5 +37,245 @@
 		<owl:imports rdf:resource="http://www.semanticweb.org/villad4/ontologies/efemo/1.0"/>
 		<owl:versionIRI rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv/1.0"/>
 	</owl:Ontology>
-
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#bias_method">
+		<rdf:type rdf:resource="&efemo;Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
+		<rdfs:label>Unfaithfulness Explained by Bias Evaluation Method</rdfs:label>
+		<efemo:evaluates_proxy rdf:resource="&efemo;self_consistency_proxy"/>
+		<rdfs:isDefinedBy>Turpin, M., Michael, J., Perez, E., &amp; Bowman, S. (2023). Language models don&apos;t always say what they think: Unfaithful explanations in chain-of-thought prompting. Advances in Neural Information Processing Systems, 36, 74952-74965.</rdfs:isDefinedBy>
+		<skos:definition>change in prediction that is stereotype-aligned when the demographic info of the input is changed and the explanation fails to reflect this</skos:definition>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#chrysostomou2021improving">
+		<rdf:type rdf:resource="&efemo;faithfulness_document"/>
+		<rdfs:label>Improving the faithfulness of attention-based explanations with task-specific information for text classification</rdfs:label>
+		<AnnotationVocabulary:directSource>Chrysostomou, G., &amp; Aletras, N. (2021). Improving the faithfulness of attention-based explanations with task-specific information for text classification. arXiv preprint arXiv:2105.02657.</AnnotationVocabulary:directSource>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#comp_method">
+		<rdf:type rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;correctness_evaluation_method"/>
+		<rdfs:label>Comprehensiveness Evaluation Method</rdfs:label>
+		<efemo:evaluates_proxy rdf:resource="&efemo;polarity_consistency_proxy"/>
+		<rdfs:isDefinedBy>DeYoung, J., Jain, S., Rajani, N. F., Lehman, E., Xiong, C., Socher, R., &amp; Wallace, B. C. (2020, July). ERASER: A benchmark to evaluate rationalized NLP models. In Proceedings of the 58th annual meeting of the association for computational linguistics (pp. 4443-4458).</rdfs:isDefinedBy>
+		<skos:definition>change in prediction probability after removing most important X%/# of tokens</skos:definition>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#comprehensiveness_ID">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure_identifier"/>
+		<rdfs:label>Comprehensiveness Identifier</rdfs:label>
+		<Designators:hasTextualName>COMP</Designators:hasTextualName>
+		<Designators:hasTextualName>Comprehensiveness</Designators:hasTextualName>
+		<Identifiers:identifies rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#eraser_comprehensiveness"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#consistency_proxy">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdfs:label>Consistency Proxy</rdfs:label>
+		<rdfs:isDefinedBy>Dasgupta, S., Frost, N., &amp; Moshkovitz, M. (2022, June). Framework for evaluating faithfulness of local explanations. In International Conference on Machine Learning (pp. 4794-4815). PMLR.</rdfs:isDefinedBy>
+		<skos:definition>A faithfulness proxy that states that if two inputs are given the same explanation, they should be given the same prediction.</skos:definition>
+		<AnnotationVocabulary:directSource>Dasgupta, S., Frost, N., &amp; Moshkovitz, M. (2022, June). Framework for evaluating faithfulness of local explanations. In International Conference on Machine Learning (pp. 4794-4815). PMLR.</AnnotationVocabulary:directSource>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#dasgupta2022framework">
+		<rdf:type rdf:resource="&efemo;faithfulness_document"/>
+		<rdfs:label>Framework for evaluating faithfulness of local explanations</rdfs:label>
+		<AnnotationVocabulary:directSource>Dasgupta, S., Frost, N., &amp; Moshkovitz, M. (2022, June). Framework for evaluating faithfulness of local explanations. In International Conference on Machine Learning (pp. 4794-4815). PMLR.</AnnotationVocabulary:directSource>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#decision_flip_most_informative_token">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:label>Decision Flip - Most Informative Token</rdfs:label>
+		<terms:description>% decision flips after removing most important token</terms:description>
+		<efemo:evaluates_modality rdf:resource="&efemo;attention_map_explanation_modality"/>
+		<efemo:has_granularity rdf:resource="&efemo;local_scope"/>
+		<efemo:has_model_specificity rdf:resource="&efemo;model_agnostic"/>
+		<efemo:measures_proxy rdf:resource="&efemo;polarity_consistency_proxy"/>
+		<efemo:requires_access_level rdf:resource="&efemo;inference_access_level"/>
+		<efemo:uses_method rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#dfmit_method"/>
+		<prov:wasAttributedTo rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#chrysostomou2021improving"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#deyoung2019eraser">
+		<rdf:type rdf:resource="&efemo;faithfulness_document"/>
+		<rdfs:label>ERASER: A benchmark to evaluate rationalized NLP models</rdfs:label>
+		<AnnotationVocabulary:directSource>DeYoung, J., Jain, S., Rajani, N. F., Lehman, E., Xiong, C., Socher, R., &amp; Wallace, B. C. (2020, July). ERASER: A benchmark to evaluate rationalized NLP models. In Proceedings of the 58th annual meeting of the association for computational linguistics (pp. 4443-4458).</AnnotationVocabulary:directSource>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#dfmit_ID">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure_identifier"/>
+		<rdfs:label>Decision Flip - Most Important Token Identifier</rdfs:label>
+		<Designators:hasTextualName>DFMIT</Designators:hasTextualName>
+		<Designators:hasTextualName>Decision Flip - Most Informative Token</Designators:hasTextualName>
+		<Identifiers:identifies rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#decision_flip_most_informative_token"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#dfmit_method">
+		<rdf:type rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;correctness_evaluation_method"/>
+		<rdfs:label>DFMIT Evaluation Method</rdfs:label>
+		<efemo:evaluates_proxy rdf:resource="&efemo;polarity_consistency_proxy"/>
+		<rdfs:isDefinedBy>Chrysostomou, G., &amp; Aletras, N. (2021). Improving the faithfulness of attention-based explanations with task-specific information for text classification. arXiv preprint arXiv:2105.02657.</rdfs:isDefinedBy>
+		<skos:definition>% decision flips after removing most important token</skos:definition>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#eraser_comprehensiveness">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:label>Comprehensiveness</rdfs:label>
+		<terms:description>change in prediction probability after removing most important X%/# of tokens</terms:description>
+		<efemo:evaluates_modality rdf:resource="&efemo;attention_map_explanation_modality"/>
+		<efemo:has_granularity rdf:resource="&efemo;local_scope"/>
+		<efemo:has_model_specificity rdf:resource="&efemo;model_agnostic"/>
+		<efemo:measures_proxy rdf:resource="&efemo;polarity_consistency_proxy"/>
+		<efemo:requires_access_level rdf:resource="&efemo;inference_access_level"/>
+		<efemo:uses_method rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#comp_method"/>
+		<prov:wasAttributedTo rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#deyoung2019eraser"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#global_consistency">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:label>Global Consistency</rdfs:label>
+		<terms:description>The global consistency of explanation system (f, e), with respect to distribution µ over X , is m^c = E_{x∈µX}[m^c (x)].</terms:description>
+		<efemo:evaluates_modality rdf:resource="&efemo;cot_explanation_modality"/>
+		<efemo:has_granularity rdf:resource="&efemo;global_scope"/>
+		<efemo:has_model_specificity rdf:resource="&efemo;model_agnostic"/>
+		<efemo:measures_proxy rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#consistency_proxy"/>
+		<efemo:requires_access_level rdf:resource="&efemo;inference_access_level"/>
+		<efemo:uses_method rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#global_consistency_method"/>
+		<prov:wasAttributedTo rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#dasgupta2022framework"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#global_consistency_id">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure_identifier"/>
+		<rdfs:label>Global Consistency Identifier</rdfs:label>
+		<Designators:hasTextualName>Global Consistency</Designators:hasTextualName>
+		<Identifiers:identifies rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#global_consistency"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#global_consistency_method">
+		<rdf:type rdf:resource="&efemo;Axiomatic_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:label>Global Consistency Evaluation Method</rdfs:label>
+		<efemo:evaluates_proxy rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#consistency_proxy"/>
+		<rdfs:isDefinedBy>Dasgupta, S., Frost, N., &amp; Moshkovitz, M. (2022, June). Framework for evaluating faithfulness of local explanations. In International Conference on Machine Learning (pp. 4794-4815). PMLR.</rdfs:isDefinedBy>
+		<skos:definition>the expectation across the entire dataset that two inputs that are assigned the same explanation will receive the same output</skos:definition>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#jain2019attentionAiNE">
+		<rdf:type rdf:resource="&efemo;faithfulness_document"/>
+		<rdfs:label>Attention is not explanation</rdfs:label>
+		<AnnotationVocabulary:directSource>Jain, S., &amp; Wallace, B. C. (2019). Attention is not explanation. arXiv preprint arXiv:1902.10186.</AnnotationVocabulary:directSource>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#local_sufficiency">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:label>Local Sufficiency</rdfs:label>
+		<terms:description>The local sufficiency of explainer e for model f at instance x, with respect to distribution µ, is defined as m^s(x) = Pr_{x′∈µC_x}(f(x′) = f(x)).
+Recall that the notation x′ ∈µ Cx means “x′ is drawn from distribution µ restricted to the set C_x”</terms:description>
+		<efemo:evaluates_modality rdf:resource="&efemo;cot_explanation_modality"/>
+		<efemo:has_granularity rdf:resource="&efemo;local_scope"/>
+		<efemo:has_model_specificity rdf:resource="&efemo;model_agnostic"/>
+		<efemo:measures_proxy rdf:resource="&efemo;minimality_proxy"/>
+		<efemo:requires_access_level rdf:resource="&efemo;inference_access_level"/>
+		<efemo:uses_method rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#local_sufficiency_method"/>
+		<prov:wasAttributedTo rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#dasgupta2022framework"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#local_sufficiency_id">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure_identifier"/>
+		<rdfs:label>Local Sufficiency Identifier</rdfs:label>
+		<Designators:hasTextualName>Local Sufficiency</Designators:hasTextualName>
+		<Identifiers:identifies rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#local_sufficiency"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#local_sufficiency_method">
+		<rdf:type rdf:resource="&efemo;Axiomatic_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:label>Local Sufficiency Evaluation Method</rdfs:label>
+		<efemo:evaluates_proxy rdf:resource="&efemo;minimality_proxy"/>
+		<rdfs:isDefinedBy>Dasgupta, S., Frost, N., &amp; Moshkovitz, M. (2022, June). Framework for evaluating faithfulness of local explanations. In International Conference on Machine Learning (pp. 4794-4815). PMLR.</rdfs:isDefinedBy>
+		<skos:definition>the probability that two inputs for which the same explanation holds true will have the same output</skos:definition>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#random_permute">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:label>RandomPermute</rdfs:label>
+		<terms:description>change in prediction probability after randomizing all attention weights</terms:description>
+		<efemo:evaluates_modality rdf:resource="&efemo;attention_map_explanation_modality"/>
+		<efemo:has_granularity rdf:resource="&efemo;local_scope"/>
+		<efemo:has_model_specificity rdf:resource="&efemo;transformer_specific"/>
+		<efemo:measures_proxy rdf:resource="&efemo;robustness_equivalence_proxy"/>
+		<efemo:requires_access_level rdf:resource="&efemo;attention_weight_access_level"/>
+		<efemo:requires_access_level rdf:resource="&efemo;inference_access_level"/>
+		<efemo:uses_method rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#random_permute_method"/>
+		<prov:wasAttributedTo rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#jain2019attentionAiNE"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#random_permute_method">
+		<rdf:type rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
+		<rdfs:label>Random Permute Evaluation Method</rdfs:label>
+		<efemo:evaluates_proxy rdf:resource="&efemo;robustness_equivalence_proxy"/>
+		<rdfs:isDefinedBy>Jain, S., &amp; Wallace, B. C. (2019). Attention is not explanation. arXiv preprint arXiv:1902.10186.</rdfs:isDefinedBy>
+		<skos:definition>change in prediction probability after randomizing all attention weights</skos:definition>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#randompermute_ID">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure_identifier"/>
+		<rdfs:label>RandomPermute Identifier</rdfs:label>
+		<Designators:hasTextualName>RandomPermute</Designators:hasTextualName>
+		<Identifiers:identifies rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#random_permute"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#turpin2024language">
+		<rdf:type rdf:resource="&efemo;faithfulness_document"/>
+		<rdfs:label>Language models dont always say what they think: unfaithful explanations in chain-of-thought prompting</rdfs:label>
+		<AnnotationVocabulary:directSource>Turpin, M., Michael, J., Perez, E., &amp; Bowman, S. (2023). Language models don&apos;t always say what they think: Unfaithful explanations in chain-of-thought prompting. Advances in Neural Information Processing Systems, 36, 74952-74965.</AnnotationVocabulary:directSource>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#ueb_ID">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure_identifier"/>
+		<rdfs:label>Unfaithfulness Explained by Bias Identifier</rdfs:label>
+		<Designators:hasTextualName>Unfaithfulness Explained by Bias</Designators:hasTextualName>
+		<Identifiers:identifies rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#unfaithfulness_explained_by_bias"/>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#unfaithfulness_explained_by_bias">
+		<rdf:type rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:label>Unfaithfulness Explained by Bias</rdfs:label>
+		<terms:description>change in prediction that is stereotype-aligned when the demographic info of the input is changed and the explanation fails to reflect this</terms:description>
+		<efemo:evaluates_modality rdf:resource="&efemo;attention_map_explanation_modality"/>
+		<efemo:evaluates_modality rdf:resource="&efemo;cot_explanation_modality"/>
+		<efemo:has_granularity rdf:resource="&efemo;local_scope"/>
+		<efemo:has_model_specificity rdf:resource="&efemo;model_agnostic"/>
+		<efemo:measures_proxy rdf:resource="&efemo;self_consistency_proxy"/>
+		<efemo:requires_access_level rdf:resource="&efemo;inference_access_level"/>
+		<efemo:uses_method rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#bias_method"/>
+		<prov:wasAttributedTo rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#turpin2024language"/>
+	</owl:NamedIndividual>
+	
+	<owl:AllDifferent>
+		<owl:distinctMembers rdf:parseType="Collection">
+			<rdf:Description rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#decision_flip_most_informative_token">
+			</rdf:Description>
+			<rdf:Description rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#eraser_comprehensiveness">
+			</rdf:Description>
+			<rdf:Description rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#global_consistency">
+			</rdf:Description>
+			<rdf:Description rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#local_sufficiency">
+			</rdf:Description>
+			<rdf:Description rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#random_permute">
+			</rdf:Description>
+			<rdf:Description rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#unfaithfulness_explained_by_bias">
+			</rdf:Description>
+		</owl:distinctMembers>
+	</owl:AllDifferent>
 </rdf:RDF>

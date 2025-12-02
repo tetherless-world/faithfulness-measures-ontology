@@ -39,6 +39,10 @@ Therefore this project will develop such as ontology. For this project, the meas
         <td>Ontology Overview</td>
         <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/ontology">Ontology Page</a></td> 
     </tr>
+    <tr>
+        <td>Usage Scenarios, Competency Questions, Queries</td>
+        <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/ontology">Example Page</a></td> 
+    </tr>
 </table>
 
 ## Team
