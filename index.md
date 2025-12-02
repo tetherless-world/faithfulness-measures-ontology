@@ -5,7 +5,7 @@ title: Faithfulness Measures Ontology
 
 <h1 class="page-title" style="text-transform:uppercase;" id="header">Faithfulness Measures Ontology</h1>
 
-<p class="message">A website to track the progress of the Explanation Faithfulness Measures Ontology project.</p>
+<p class="message">A website to track the progress of the Explanation Faithfulness Evaluation Measures Ontology project.</p>
 
 ## Overview
 
@@ -30,6 +30,10 @@ Therefore this project will develop such as ontology. For this project, the meas
     <tr>
         <td>Use Case</td>
         <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/usecase">Use Case Page</a></td> 
+    </tr>
+    <tr>
+        <td>Term List</td>
+        <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/terms">Terminology Page</a></td> 
     </tr>
 </table>
 

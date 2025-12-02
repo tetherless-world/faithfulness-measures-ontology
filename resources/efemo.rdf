@@ -324,6 +324,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:label>Natural Language Modality</rdfs:label>
 		<rdfs:isDefinedBy>Luo, S., Ivison, H., Han, S. C., &amp; Poon, J. (2024). Local interpretations for explainable natural language processing: A survey. ACM Computing Surveys, 56(9), 1-36.</rdfs:isDefinedBy>
 		<skos:definition>An explanation modality that is generated text</skos:definition>
+		<AnnotationVocabulary:abbreviation>NLE</AnnotationVocabulary:abbreviation>
 		<AnnotationVocabulary:directSource>Luo, S., Ivison, H., Han, S. C., &amp; Poon, J. (2024). Local interpretations for explainable natural language processing: A survey. ACM Computing Surveys, 56(9), 1-36.</AnnotationVocabulary:directSource>
 	</owl:Class>
 	
@@ -915,6 +916,13 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:isDefinedBy>Crothers, E., Viktor, H., &amp; Japkowicz, N. (2024, September). Robust Infidelity: When Faithfulness Measures on Masked Language Models Are Misleading. In International Conference on Machine Learning, Optimization, and Data Science (pp. 133-147). Cham: Springer Nature Switzerland.</rdfs:isDefinedBy>
 		<AnnotationVocabulary:directSource>Crothers, E., Viktor, H., &amp; Japkowicz, N. (2024, September). Robust Infidelity: When Faithfulness Measures on Masked Language Models Are Misleading. In International Conference on Machine Learning, Optimization, and Data Science (pp. 133-147). Cham: Springer Nature Switzerland.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
+	
+	<owl:ObjectProperty rdf:about="&efemo;similar_measure_to">
+		<rdfs:label>Similar Measure To</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<skos:definition>Specifies a measure that measures the same proxy, uses the same type of evaluation method, evaluates the same modality, has the same granularity level, the same model specificity, and at least one shared assumption and shared access level</skos:definition>
+	</owl:ObjectProperty>
 	
 	<owl:NamedIndividual rdf:about="&efemo;simulatability_proxy">
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>

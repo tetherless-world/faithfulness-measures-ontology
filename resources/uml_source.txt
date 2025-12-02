@@ -1,0 +1,60 @@
+Basic Flow Diagram:
+@startuml
+actor Actor as act
+participant Measures_Recommender as mr
+participant EFEMO as ont
+database Measures_KG as mkg
+act -> mr : Lauches Application
+activate mr
+act -> mr : Provides Explainability Characteristics and Preferences
+mr -> ont : Make Assumptions about Measure Characteristics
+activate ont
+ont --> mr : Return Assumed Characteristics
+deactivate ont
+mr --> act : Display Assumed Characteristics
+act -> mr : Agree with Assumptions
+act -> mr : Request Recommendations
+mr -> ont : Get Recommended Characteristics
+activate ont
+ont --> mr : Return Recommended Characteristics
+deactivate ont
+mr -> mkg : Get Matching Measures
+activate mkg
+mkg --> mr : Return Matching Measures
+deactivate mkg
+mr --> act : Display Recommended Measures
+deactivate mr
+@enduml
+
+Alternate Flow
+@startuml
+actor Actor as act
+participant Measures_Recommender as mr
+participant EFEMO as ont
+database Measures_KG as mkg
+act -> mr : Lauches Application
+activate mr
+act -> mr : Provides Explainability Characteristics and Preferences
+mr -> ont : Make Assumptions about Measure Characteristics
+activate ont
+ont --> mr : Return Assumed Characteristics
+deactivate ont
+mr --> act : Display Assumed Characteristics
+act -[#orange]> mr : Correct Assumption, add new Preference
+mr -[#orange]> ont : Make Assumptions about Measure Characteristics
+activate ont
+ont --[#orange]> mr : Return Assumed Characteristics
+deactivate ont
+act -> mr : Agree with Assumptions
+act -> mr : Request Recommendations
+mr -> ont : Get Recommended Characteristics
+activate ont
+ont --> mr : Return Recommended Characteristics
+deactivate ont
+mr -> mkg : Get Matching Measures
+activate mkg
+mkg --> mr : Return Matching Measures
+deactivate mkg
+mr --> act : Display Recommended Measures
+deactivate mr
+@enduml
