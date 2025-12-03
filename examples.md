@@ -16,8 +16,25 @@ Several example usage scenarios, associated competency questions, and SPARQL que
 
 *SPARQL Query:*
 ```
-TODO
+PREFIX efemo: <http://www.semanticweb.org/villad4/ontologies/efemo#>
+PREFIX indv: <http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX av: <https://www.omg.org/spec/Commons/AnnotationVocabulary/>
+SELECT ?measure ?source
+WHERE { 
+	?measure a efemo:Faithfulness_Measure .
+	?measure efemo:evaluates_modality efemo:cot_explanation_modality .
+	?measure efemo:has_granularity efemo:local_scope .
+	?measure efemo:uses_method ?method .
+	?method a efemo:Robustness_Evaluation_Method .
+	?measure prov:wasAttributedTo ?doc .
+	?doc av:directSource ?source .
+	?measure efemo:requires_access_level ?access .
+	FILTER NOT EXISTS{?access efemo:higher_access_level efemo:inference_access_level .}
+}
 ```
+*Expected Answer:*
+Unfaithfulness Explained by Bias ;	"Turpin, M., Michael, J., Perez, E., & Bowman, S. (2023). Language models don't always say what they think: Unfaithful explanations in chain-of-thought prompting. Advances in Neural Information Processing Systems, 36, 74952-74965."	http://www.semanticweb.org/villad4/ontologies/2025/11/ 
 
 ## Competency Question 2
 
@@ -29,8 +46,36 @@ TODO
 
 *SPARQL Query:*
 ```
-TODO
+PREFIX efemo: <http://www.semanticweb.org/villad4/ontologies/efemo#>
+PREFIX indv: <http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX av: <https://www.omg.org/spec/Commons/AnnotationVocabulary/>
+SELECT ?measure ?source
+WHERE { 
+
+	?measure a efemo:Faithfulness_Measure .
+	?measure efemo:measures_proxy ?proxy .
+	?measure efemo:evaluates_modality ?mod .
+	?measure efemo:has_granularity ?scope .
+	?measure efemo:has_model_specificity ?spec .
+	?measure efemo:requires_access_level ?access .
+
+	indv:eraser_comprehensiveness efemo:measures_proxy ?proxy .
+	indv:eraser_comprehensiveness efemo:evaluates_modality ?mod .
+	indv:eraser_comprehensiveness efemo:has_granularity ?scope .
+	indv:eraser_comprehensiveness efemo:has_model_specificity ?spec .
+	indv:eraser_comprehensiveness efemo:requires_access_level ?access .
+
+	?measure prov:wasAttributedTo ?doc .
+	?doc av:directSource ?source .
+
+	FILTER ( ?measure != indv:eraser_comprehensiveness )
+}
 ```
+*NOTE: This property could not be inferred through SWRL rules due to significantly slowing down the reasoner*
+
+*Expected Answer:*
+Decision Flip - Most Informative Token ;	"Chrysostomou, G., & Aletras, N. (2021). Improving the faithfulness of attention-based explanations with task-specific information for text classification. arXiv preprint arXiv:2105.02657."
 
 ## Competency Question 3
 
@@ -42,8 +87,20 @@ TODO
 
 *SPARQL Query:*
 ```
-TODO
+PREFIX efemo: <http://www.semanticweb.org/villad4/ontologies/efemo#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX av: <https://www.omg.org/spec/Commons/AnnotationVocabulary/>
+SELECT ?measure ?source
+WHERE { 
+	?measure a efemo:Faithfulness_Measure .
+	?measure efemo:measures_proxy efemo:self_consistency_proxy .
+	?measure efemo:has_granularity efemo:global_scope .
+	?measure prov:wasAttributedTo ?doc .
+	?doc av:directSource ?source
+}
 ```
+*Expected Answer:*
+Global Consistency ;	"Dasgupta, S., Frost, N., & Moshkovitz, M. (2022, June). Framework for evaluating faithfulness of local explanations. In International Conference on Machine Learning (pp. 4794-4815). PMLR."
 
 ## Competency Question 4
 
@@ -55,8 +112,23 @@ TODO
 
 *SPARQL Query:*
 ```
-TODO
+PREFIX efemo: <http://www.semanticweb.org/villad4/ontologies/efemo#>
+PREFIX indv: <http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX av: <https://www.omg.org/spec/Commons/AnnotationVocabulary/>
+SELECT ?measure ?source
+WHERE { 
+	?measure a efemo:Faithfulness_Measure .
+	?measure efemo:evaluates_modality efemo:attention_map_explanation_modality .
+	?measure prov:wasAttributedTo ?doc .
+	?doc av:directSource ?source
+}
 ```
+*Expected Answer:* 
+Decision Flip - Most Informative Token ;	"Chrysostomou, G., & Aletras, N. (2021). Improving the faithfulness of attention-based explanations with task-specific information for text classification. arXiv preprint arXiv:2105.02657."
+Unfaithfulness Explained by Bias ;	"Turpin, M., Michael, J., Perez, E., & Bowman, S. (2023). Language models don't always say what they think: Unfaithful explanations in chain-of-thought prompting. Advances in Neural Information Processing Systems, 36, 74952-74965."	
+RandomPermute ;	"Jain, S., & Wallace, B. C. (2019). Attention is not explanation. arXiv preprint arXiv:1902.10186."	
+Comprehensiveness ;	"DeYoung, J., Jain, S., Rajani, N. F., Lehman, E., Xiong, C., Socher, R., & Wallace, B. C. (2020, July). ERASER: A benchmark to evaluate rationalized NLP models. In Proceedings of the 58th annual meeting of the association for computational linguistics (pp. 4443-4458)."
 
 ## Competency Question 5
 
@@ -68,5 +140,11 @@ TODO
 
 *SPARQL Query:*
 ```
-TODO
+PREFIX efemo: <http://www.semanticweb.org/villad4/ontologies/efemo#>
+PREFIX indv: <http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#>
+SELECT ?access
+WHERE { 
+	indv:local_sufficiency efemo:requires_access_level ?access
+}
 ```
+*Expected Answer:* Inference Access Level

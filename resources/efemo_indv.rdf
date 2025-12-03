@@ -11,7 +11,9 @@
 	<!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 	<!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
 	<!ENTITY skos "http://www.w3.org/2004/02/skos/core#">
+	<!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
 	<!ENTITY swrla "http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
+	<!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
 	<!ENTITY terms "http://purl.org/dc/terms/">
 	<!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
 ]>
@@ -27,7 +29,9 @@
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:swrl="http://www.w3.org/2003/11/swrl#"
 	xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+	xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
 	xmlns:terms="http://purl.org/dc/terms/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 	
@@ -41,6 +45,7 @@
 	<owl:NamedIndividual rdf:about="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#bias_method">
 		<rdf:type rdf:resource="&efemo;Evaluation_Method"/>
 		<rdf:type rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Robustness_Evaluation_Method"/>
 		<rdfs:label>Unfaithfulness Explained by Bias Evaluation Method</rdfs:label>
 		<efemo:evaluates_proxy rdf:resource="&efemo;self_consistency_proxy"/>
 		<rdfs:isDefinedBy>Turpin, M., Michael, J., Perez, E., &amp; Bowman, S. (2023). Language models don&apos;t always say what they think: Unfaithful explanations in chain-of-thought prompting. Advances in Neural Information Processing Systems, 36, 74952-74965.</rdfs:isDefinedBy>
@@ -145,6 +150,7 @@
 		<efemo:has_granularity rdf:resource="&efemo;global_scope"/>
 		<efemo:has_model_specificity rdf:resource="&efemo;model_agnostic"/>
 		<efemo:measures_proxy rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#consistency_proxy"/>
+		<efemo:measures_proxy rdf:resource="&efemo;self_consistency_proxy"/>
 		<efemo:requires_access_level rdf:resource="&efemo;inference_access_level"/>
 		<efemo:uses_method rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#global_consistency_method"/>
 		<prov:wasAttributedTo rdf:resource="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv#dasgupta2022framework"/>

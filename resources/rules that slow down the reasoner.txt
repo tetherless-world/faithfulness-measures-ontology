@@ -1,0 +1,8 @@
+Similar faithfulness measures:
+efemo:Faithfulness_Measure(?x) ^ efemo:Faithfulness_Measure(?y) ^ differentFrom(?y, ?z) ^ 
+efemo:measures_proxy(?x, ?proxy) ^ efemo:measures_proxy(?y, ?proxy) ^ 
+efemo:evaluates_modality(?x, ?mod) ^ efemo:evaluates_modality(?y, ?mod) ^ 
+efemo:has_granularity(?x, ?gran) ^ efemo:has_granularity(?y, ?gran) ^ 
+efemo:has_model_specificity(?x, ?spec) ^ efemo:has_model_specificity(?y, ?spec) ^ 
+efemo:requires_access_level(?x, ?access) ^ efemo:requires_access_level(?y, ?access) 
+-> efemo:similar_measure_to(?x, ?y)

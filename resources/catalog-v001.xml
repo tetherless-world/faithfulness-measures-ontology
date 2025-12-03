@@ -6,7 +6,7 @@
     <uri id="Imports Wizard Entry" name="https://www.omg.org/spec/Commons/20221101/Collections/" uri="https://www.omg.org/spec/Commons/Collections/"/>
     <uri id="Imports Wizard Entry" name="https://www.omg.org/spec/Commons/20221101/AnnotationVocabulary/" uri="https://www.omg.org/spec/Commons/AnnotationVocabulary/"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1764704312834" name="http://www.semanticweb.org/villad4/ontologies/2025/11/untitled-ontology-32/" uri="efemo_indv.rdf"/>
-        <uri id="Automatically generated entry, Timestamp=1764704312834" name="http://www.semanticweb.org/villad4/ontologies/efemo" uri="efemo.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1764721245155" name="http://www.semanticweb.org/villad4/ontologies/2025/11/efemo_indv" uri="efemo_indv.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1764721245155" name="http://www.semanticweb.org/villad4/ontologies/efemo" uri="efemo.rdf"/>
     </group>
 </catalog>
