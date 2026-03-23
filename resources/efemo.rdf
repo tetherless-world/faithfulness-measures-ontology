@@ -38,6 +38,7 @@
 		<terms:abstract>As artificial intelligence systems, especially large language models, gain popularity there is an increased desire to trust these systems. One common method to increase trust is to provide explanations. These explanations provide information about the system’s workings and the knowledge used in its general reasoning processes or the processes behind a specific decision. However, ensuring that these explanations are faithful, that they accurately represent that reasoning process, is a difficult and ongoing task. Over 60 measures have been proposed in the last 5 years to quantify how faithful an explanation is, but it is difficult to compare them to decide which one is most appropriate for a given use case. 
 This ontology provides a structured representation of faithfulness measures that would make comparisons easier. It documents the inferences that researchers use to evaluate and categorize these measures. Researchers proposing new measures can communicate the benefits of their idea with a shared vocabulary. Ideally this will also serve as the schema for a comprehensive knowledge graph of measures which will power a recommendation system for AI explainability researchers.</terms:abstract>
 		<terms:creator>Danielle Villa: https://tw.rpi.edu/person/danielle-villa</terms:creator>
+		<terms:license>http://opensource.org/licenses/MIT</terms:license>
 		<owl:imports rdf:resource="&ns;prov-o-20130430"/>
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/20221101/AnnotationVocabulary/"/>
 		<owl:imports rdf:resource="https://www.omg.org/spec/Commons/20221101/Collections/"/>
@@ -104,9 +105,6 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:Class rdf:about="http://www.ontologydesignpatterns.org/cp/owl/situation.owl#Situation">
 	</owl:Class>
 	
-	<swrl:Variable rdf:about="&ontologies;al">
-	</swrl:Variable>
-	
 	<owl:Class rdf:about="&efemo;Assumption">
 		<rdfs:label>Assumption</rdfs:label>
 		<rdfs:isDefinedBy>Merriam-Webster: Assumption, Definition 3b - https://www.merriam-webster.com/dictionary/assumption</rdfs:isDefinedBy>
@@ -150,11 +148,38 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:adaptedFrom>Alangari, N., El Bachir Menai, M., Mathkour, H., &amp; Almosallam, I. (2023). Exploring evaluation methods for interpretable machine learning: A survey. Information, 14(8), 469.</AnnotationVocabulary:adaptedFrom>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&efemo;Computational_Faithfulness_Measure">
+		<rdfs:subClassOf rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;measure_uses_method"/>
+				<owl:someValuesFrom rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>Computational Faithfulness Measure</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Class>
+				<owl:intersectionOf rdf:parseType="Collection">
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&efemo;measure_evaluates_modality"/>
+						<owl:someValuesFrom rdf:resource="&efemo;Feature_Based_Modality"/>
+					</owl:Restriction>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&efemo;faithfulness_measure_uses_proxy"/>
+						<owl:hasValue rdf:resource="&efemo;soundness_proxy"/>
+					</owl:Restriction>
+				</owl:intersectionOf>
+			</owl:Class>
+		</owl:equivalentClass>
+		<skos:definition>a faithfulness measure that uses the soundness proxy and evaluates explanations with a feature-based modality</skos:definition>
+		<AnnotationVocabulary:directSource>Zhou, J., Gandomi, A. H., Chen, F., &amp; Holzinger, A. (2021). Evaluating the quality of machine learning explanations: A survey on methods and metrics. Electronics, 10(5), 593.</AnnotationVocabulary:directSource>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&efemo;Corollary">
 		<rdfs:subClassOf rdf:resource="&efemo;Assumption"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;inferred_from_assumption"/>
+				<owl:onProperty rdf:resource="&efemo;corollary_inferred_from_assumption"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Assumption"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -166,7 +191,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:Class rdf:about="&efemo;Evaluation_Method">
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluates_proxy"/>
+				<owl:onProperty rdf:resource="&efemo;method_evaluates_proxy"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Faithfulness_Proxy"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -178,43 +203,43 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:Class rdf:about="&efemo;Faithfulness_Measure">
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluates_faithfulness_of_explanations"/>
-				<owl:someValuesFrom rdf:resource="&efemo;Collection_of_Explanations"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluates_modality"/>
-				<owl:someValuesFrom rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;has_granularity"/>
-				<owl:someValuesFrom rdf:resource="&efemo;Granularity"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;has_model_specificity"/>
-				<owl:someValuesFrom rdf:resource="&efemo;Model_Specificity"/>
-			</owl:Restriction>
-		</rdfs:subClassOf>
-		<rdfs:subClassOf>
-			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;measures_proxy"/>
+				<owl:onProperty rdf:resource="&efemo;faithfulness_measure_uses_proxy"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Faithfulness_Proxy"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;requires_access_level"/>
+				<owl:onProperty rdf:resource="&efemo;measure_evaluates_explanations"/>
+				<owl:someValuesFrom rdf:resource="&efemo;Collection_of_Explanations"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;measure_evaluates_modality"/>
+				<owl:someValuesFrom rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;measure_has_granularity"/>
+				<owl:someValuesFrom rdf:resource="&efemo;Granularity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;measure_has_model_specificity"/>
+				<owl:someValuesFrom rdf:resource="&efemo;Model_Specificity"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;measure_requires_access_level"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Model_Access_Level"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;uses_method"/>
+				<owl:onProperty rdf:resource="&efemo;measure_uses_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Evaluation_Method"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -253,7 +278,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:Class rdf:about="&efemo;Faithfulness_Proxy">
 		<rdfs:subClassOf>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;makes_assumption"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_requires_assumption"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Assumption"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
@@ -262,6 +287,30 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:isDefinedBy>Oxford Reference: Proxy Variable - https://www.oxfordreference.com/display/10.1093/oi/authority.20110803100351624</rdfs:isDefinedBy>
 		<skos:definition>A property used instead of faithfulness when faithfulness cannot be measured directly</skos:definition>
 		<AnnotationVocabulary:explanatoryNote>As faithfulness cannot currently be measured, this specifies the alternate property that is used as a substitute property or necessary condition for faithfulness</AnnotationVocabulary:explanatoryNote>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&efemo;Feature-based_Evaluation_Method">
+		<rdfs:subClassOf rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:label>Feature-based Evaluation Method</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_modality"/>
+				<owl:someValuesFrom rdf:resource="&efemo;Feature_Based_Modality"/>
+			</owl:Restriction>
+		</owl:equivalentClass>
+		<skos:definition>an evaluation method that evaluates explanations with a feature-based modality</skos:definition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&efemo;Feature-based_Faithfulness_Proxy">
+		<rdfs:subClassOf rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdfs:label>Feature-based Faithfulness Proxy</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;proxy_requires_modality"/>
+				<owl:someValuesFrom rdf:resource="&efemo;Feature_Based_Modality"/>
+			</owl:Restriction>
+		</owl:equivalentClass>
+		<skos:definition>a faithfulness proxy that requires a feature-based explanation modality to be used by a faithfulness measure</skos:definition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&efemo;Feature_Based_Modality">
@@ -312,6 +361,29 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Alangari, N., El Bachir Menai, M., Mathkour, H., &amp; Almosallam, I. (2023). Exploring evaluation methods for interpretable machine learning: A survey. Information, 14(8), 469.</AnnotationVocabulary:directSource>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&efemo;Model_Specific_Faithfulness_Measure">
+		<rdfs:subClassOf rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;measure_has_model_specificity"/>
+				<owl:someValuesFrom rdf:resource="&efemo;Model_Specific"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>Model Specific Faithfulness Measure</rdfs:label>
+		<owl:equivalentClass>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;measure_requires_access_level"/>
+				<owl:someValuesFrom>
+					<owl:Restriction>
+						<owl:onProperty rdf:resource="&efemo;higher_access_level"/>
+						<owl:hasValue rdf:resource="&efemo;inference_access_level"/>
+					</owl:Restriction>
+				</owl:someValuesFrom>
+			</owl:Restriction>
+		</owl:equivalentClass>
+		<skos:definition>a faithfulness measure that requires more model access than just inference level</skos:definition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&efemo;Model_Specificity">
 		<rdfs:label>Model Specificty</rdfs:label>
 		<skos:definition>How particular a faithfulness measure is to the architecture of a model</skos:definition>
@@ -330,6 +402,18 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:Class rdf:about="&efemo;Perturbation_Based_Evaluation_Method">
 		<rdfs:subClassOf rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_access_level"/>
+				<owl:hasValue rdf:resource="&efemo;inference_access_level"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;linearity_assumption"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>Perturbation-based Evaluation Method</rdfs:label>
 		<rdfs:isDefinedBy>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:isDefinedBy>
 		<skos:definition>An evaluation method that perturbs parts of the input and observes the change in the output</skos:definition>
@@ -350,6 +434,18 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:Class rdf:about="&efemo;Robustness_Evaluation_Method">
 		<rdfs:subClassOf rdf:resource="&efemo;Evaluation_Method"/>
 		<rdfs:subClassOf rdf:resource="&efemo;stability_evaluation_method"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_access_level"/>
+				<owl:hasValue rdf:resource="&efemo;inference_access_level"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;prediction_assumption"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>Robustness Evaluation Method</rdfs:label>
 		<rdfs:isDefinedBy>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:isDefinedBy>
 		<skos:definition>An evaluation method that measures whether the explanation is stable against subtle changes in the input examples</skos:definition>
@@ -365,6 +461,22 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</AnnotationVocabulary:directSource>
 	</owl:Class>
 	
+	<owl:ObjectProperty rdf:about="&efemo;access_level_required_by_proxy">
+		<rdfs:label>Access Level Required by Proxy</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Model_Access_Level"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<owl:inverseOf rdf:resource="&efemo;proxy_requires_access_level"/>
+		<skos:definition>Specifies a proxy that requires the model access level to be used by the faithfulness measure</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;access_level_used_by_measure">
+		<rdfs:label>Access Level used by Measure</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Model_Access_Level"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<owl:inverseOf rdf:resource="&efemo;measure_requires_access_level"/>
+		<skos:definition>Specifies the available faithfulness measures for a given model access level</skos:definition>
+	</owl:ObjectProperty>
+	
 	<owl:Class rdf:about="&efemo;access_the_classifier_method">
 		<rdfs:subClassOf rdf:resource="&efemo;Human_Based_Evaluation_Method"/>
 		<rdfs:subClassOf rdf:resource="&efemo;Predictive_Power_Evaluation_Method"/>
@@ -373,6 +485,38 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>A human-based evaluation method designed to assess whether the interpretation provides sufficient information to understand the classifier&apos;s logic</skos:definition>
 		<AnnotationVocabulary:directSource>Alangari, N., El Bachir Menai, M., Mathkour, H., &amp; Almosallam, I. (2023). Exploring evaluation methods for interpretable machine learning: A survey. Information, 14(8), 469.</AnnotationVocabulary:directSource>
 	</owl:Class>
+	
+	<owl:ObjectProperty rdf:about="&efemo;assumed_by_faithfulness_measure">
+		<rdfs:label>Assumed by Faithfulness Measure</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Assumption"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<owl:inverseOf rdf:resource="&efemo;measure_makes_assumption"/>
+		<skos:definition>Specifies the faithfulness measures that make a given assumption</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;assumption_has_corollary">
+		<rdfs:label>Assumption has Corollary</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Assumption"/>
+		<rdfs:range rdf:resource="&efemo;Corollary"/>
+		<owl:inverseOf rdf:resource="&efemo;corollary_inferred_from_assumption"/>
+		<skos:definition>Specifies the corollary that follows from the assumption</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;assumption_required_by_method">
+		<rdfs:label>Assumption Required by Method</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Assumption"/>
+		<rdfs:range rdf:resource="&efemo;Evaluation_Method"/>
+		<owl:inverseOf rdf:resource="&efemo;method_requires_assumption"/>
+		<skos:definition>Specifies an evaluation method that requires an assumption to hold</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;assumption_required_by_proxy">
+		<rdfs:label>Assumption Required by Proxy</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Assumption"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<owl:inverseOf rdf:resource="&efemo;proxy_requires_assumption"/>
+		<skos:definition>Specifies a proxy that requires the assumption to hold in order to be used by a faithfulness measure</skos:definition>
+	</owl:ObjectProperty>
 	
 	<owl:NamedIndividual rdf:about="&efemo;attention_map_explanation_modality">
 		<rdf:type rdf:resource="&efemo;Feature_Based_Modality"/>
@@ -393,6 +537,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:NamedIndividual rdf:about="&efemo;completeness_proxy">
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdfs:label>Completeness Proxy</rdfs:label>
+		<efemo:proxy_requires_granularity rdf:resource="&efemo;global_scope"/>
 		<rdfs:isDefinedBy>Zhou, J., Gandomi, A. H., Chen, F., &amp; Holzinger, A. (2021). Evaluating the quality of machine learning explanations: A survey on methods and metrics. Electronics, 10(5), 593.</rdfs:isDefinedBy>
 		<skos:definition>A faithfulness proxy that states that the explanation should describe the entire dynamic of the model</skos:definition>
 		<AnnotationVocabulary:directSource>Zhou, J., Gandomi, A. H., Chen, F., &amp; Holzinger, A. (2021). Evaluating the quality of machine learning explanations: A survey on methods and metrics. Electronics, 10(5), 593.</AnnotationVocabulary:directSource>
@@ -402,18 +547,19 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;White_Box_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;surrogate_model_method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdfs:label>Completeness to Model Evaluation Proxy</rdfs:label>
-		<efemo:makes_assumption rdf:resource="&efemo;model_corollary_1"/>
+		<efemo:proxy_requires_assumption rdf:resource="&efemo;model_corollary_1"/>
+		<efemo:proxy_requires_granularity rdf:resource="&efemo;global_scope"/>
 		<rdfs:isDefinedBy>Gilpin, L. H., Bau, D., Yuan, B. Z., Bajwa, A., Specter, M., &amp; Kagal, L. (2018, October). Explaining explanations: An overview of interpretability of machine learning. In 2018 IEEE 5th International Conference on data science and advanced analytics (DSAA) (pp. 80-89). IEEE.</rdfs:isDefinedBy>
 		<skos:definition>A faithfulness proxy that states that a surrogate model should closely approximate the original model it explains</skos:definition>
 		<AnnotationVocabulary:directSource>Gilpin, L. H., Bau, D., Yuan, B. Z., Bajwa, A., Specter, M., &amp; Kagal, L. (2018, October). Explaining explanations: An overview of interpretability of machine learning. In 2018 IEEE 5th International Conference on data science and advanced analytics (DSAA) (pp. 80-89). IEEE.</AnnotationVocabulary:directSource>
@@ -431,11 +577,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Robustness_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdfs:label>Continuity Proxy</rdfs:label>
+		<efemo:proxy_requires_access_level rdf:resource="&efemo;inference_access_level"/>
 		<rdfs:isDefinedBy>Nejadgholi, I., Omidyeganeh, M., Drouin, M. A., &amp; Boisvert, J. (2025). A Taxonomy for Design and Evaluation of Prompt-Based Natural Language Explanations. arXiv preprint arXiv:2507.10585.</rdfs:isDefinedBy>
 		<skos:definition>A faithfulness proxy that states that a small input change should result in a small explanation change</skos:definition>
 		<AnnotationVocabulary:directSource>Nejadgholi, I., Omidyeganeh, M., Drouin, M. A., &amp; Boisvert, J. (2025). A Taxonomy for Design and Evaluation of Prompt-Based Natural Language Explanations. arXiv preprint arXiv:2507.10585.</AnnotationVocabulary:directSource>
@@ -445,7 +592,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Robustness_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
@@ -454,6 +601,15 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>A faithfulness proxy that an explanation should highlight differences from alternative outcomes</skos:definition>
 		<AnnotationVocabulary:directSource>Nejadgholi, I., Omidyeganeh, M., Drouin, M. A., &amp; Boisvert, J. (2025). A Taxonomy for Design and Evaluation of Prompt-Based Natural Language Explanations. arXiv preprint arXiv:2507.10585.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
+	
+	<owl:ObjectProperty rdf:about="&efemo;corollary_inferred_from_assumption">
+		<rdfs:label>Corollary Inferred from Assumption</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Corollary"/>
+		<rdfs:range rdf:resource="&efemo;Assumption"/>
+		<skos:definition>Specifies the assumption that the corollary naturally follows from</skos:definition>
+		<skos:note>May be considered transitive, but would require a corollary of a corollary. Since this is currently not observed in this domain, we do not mark it as such.</skos:note>
+		<AnnotationVocabulary:adaptedFrom>Merriam-Webster: Corollary, Definition 1 - https://www.merriam-webster.com/dictionary/corollary</AnnotationVocabulary:adaptedFrom>
+	</owl:ObjectProperty>
 	
 	<owl:Class rdf:about="&efemo;correctness_evaluation_method">
 		<rdfs:subClassOf rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
@@ -484,46 +640,21 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:NamedIndividual rdf:about="&efemo;erasure_method">
 		<rdf:type rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Feature-based_Evaluation_Method"/>
 		<rdf:type rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
 		<rdfs:label>Erasure Method</rdfs:label>
+		<efemo:method_requires_assumption rdf:resource="&efemo;linearity_assumption"/>
 		<rdfs:isDefinedBy>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</rdfs:isDefinedBy>
 		<skos:definition>A compuational-based evaluation method where parts of the input are erased in expectation that the model&apos;s decision will or will not change, based on the explanation</skos:definition>
 		<AnnotationVocabulary:directSource>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
 	
-	<owl:ObjectProperty rdf:about="&efemo;evaluated_by_method">
-		<rdfs:label>Evaluated by Method</rdfs:label>
-		<owl:inverseOf rdf:resource="&efemo;evaluates_proxy"/>
-		<skos:definition>Specifies an evaluation method that evaluates the faithfulness proxy</skos:definition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&efemo;evaluates_faithfulness_of_explanations">
-		<rdfs:label>Evaluates Faithfulness of Explanations</rdfs:label>
-		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
-		<rdfs:range rdf:resource="&efemo;Collection_of_Explanations"/>
-		<skos:definition>Specifies the collection of explanations that a faithfulness measure uses to determine faithfulness</skos:definition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&efemo;evaluates_modality">
-		<rdfs:label>Evaluates Modality</rdfs:label>
-		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
-		<rdfs:range rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
-		<owl:propertyChainAxiom rdf:parseType="Collection">
-			<rdf:Description rdf:about="&efemo;evaluates_faithfulness_of_explanations">
-			</rdf:Description>
-			<rdf:Description rdf:about="https://www.omg.org/spec/Commons/Collections/comprises">
-			</rdf:Description>
-			<rdf:Description rdf:about="https://purl.org/heals/eo#hasPresentation">
-			</rdf:Description>
-		</owl:propertyChainAxiom>
-		<skos:definition>Specifies the modality of the explanations that a faithfulness measure can determine the faithfulness of</skos:definition>
-	</owl:ObjectProperty>
-	
-	<owl:ObjectProperty rdf:about="&efemo;evaluates_proxy">
-		<rdfs:label>Evaluates Proxy</rdfs:label>
-		<rdfs:domain rdf:resource="&efemo;Evaluation_Method"/>
-		<rdfs:range rdf:resource="&efemo;Faithfulness_Proxy"/>
-		<skos:definition>Specifies a faithfulness proxy evaluated by the evaluation method</skos:definition>
+	<owl:ObjectProperty rdf:about="&efemo;explanations_evaluated_by_faithfulness_measure">
+		<rdfs:label>Explanations Evaluated by Faithfulness Measure</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Collection_of_Explanations"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<owl:inverseOf rdf:resource="&efemo;measure_evaluates_explanations"/>
+		<skos:definition>Specifies the faithfulness measure that may evaluate the collection of explanations</skos:definition>
 	</owl:ObjectProperty>
 	
 	<owl:Class rdf:about="&efemo;faithfulness_document">
@@ -533,21 +664,37 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>A document that introduces a faithfulness measure</skos:definition>
 	</owl:Class>
 	
+	<owl:ObjectProperty rdf:about="&efemo;faithfulness_measure_uses_proxy">
+		<rdfs:label>Faithfulness Measure uses Proxy</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<owl:inverseOf rdf:resource="&efemo;proxy_used_by_faithfulness_measure"/>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&efemo;measure_uses_method">
+			</rdf:Description>
+			<rdf:Description rdf:about="&efemo;method_evaluates_proxy">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<skos:definition>Specifices the faithfulness proxy that the faithfulness measure evaluates in place of faithfulness</skos:definition>
+	</owl:ObjectProperty>
+	
 	<owl:NamedIndividual rdf:about="&efemo;feature_importance_agreement_proxy">
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdf:type rdf:resource="&efemo;Feature-based_Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Axiomatic_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdfs:label>Feature Importance Agreement Proxy</rdfs:label>
+		<efemo:proxy_requires_assumption rdf:resource="&efemo;linearity_assumption"/>
 		<rdfs:isDefinedBy>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:isDefinedBy>
 		<skos:definition>A faithfulness proxy that states that input tokens that are important (resp. unimportant) for label prediction should also be important (resp. unimportant) for explanation generation</skos:definition>
 		<AnnotationVocabulary:directSource>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</AnnotationVocabulary:directSource>
@@ -555,6 +702,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:Class rdf:about="&efemo;find_alignment_method">
 		<rdfs:subClassOf rdf:resource="&efemo;Human_Based_Evaluation_Method"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;logic_trap_1"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>Find-Alignment Method</rdfs:label>
 		<rdfs:isDefinedBy>Alangari, N., El Bachir Menai, M., Mathkour, H., &amp; Almosallam, I. (2023). Exploring evaluation methods for interpretable machine learning: A survey. Information, 14(8), 469.</rdfs:isDefinedBy>
 		<skos:definition>A human-based evaluation method designed to evaluate how close the explanation is to human reasoning</skos:definition>
@@ -597,32 +750,38 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:adaptedFrom>Bastings, J., &amp; Filippova, K. (2020). The elephant in the interpretability room: Why use attention as explanation when we have saliency methods?. arXiv preprint arXiv:2010.05607.</AnnotationVocabulary:adaptedFrom>
 	</owl:NamedIndividual>
 	
-	<owl:ObjectProperty rdf:about="&efemo;has_granularity">
-		<rdfs:label>Has Granularity</rdfs:label>
-		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
-		<rdfs:range rdf:resource="&efemo;Granularity"/>
-		<skos:definition>Specifies the level of granularity at which a faithfulness measure operates</skos:definition>
+	<owl:ObjectProperty rdf:about="&efemo;granularity_used_by_measure">
+		<rdfs:label>Granularity used by Measure</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Granularity"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<owl:inverseOf rdf:resource="&efemo;measure_has_granularity"/>
+		<skos:definition>Specifies the available faithfulness measures for a given explanation granularity</skos:definition>
 	</owl:ObjectProperty>
 	
-	<owl:ObjectProperty rdf:about="&efemo;has_model_specificity">
-		<rdfs:label>Has Model Specificity</rdfs:label>
-		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
-		<rdfs:range rdf:resource="&efemo;Model_Specificity"/>
-		<skos:definition>Specifies how specific the model must be to apply the faithfulness measure</skos:definition>
+	<owl:ObjectProperty rdf:about="&efemo;granularity_used_by_proxy">
+		<rdfs:label>Granularity used by Proxy</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Granularity"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<owl:inverseOf rdf:resource="&efemo;proxy_requires_granularity"/>
+		<skos:definition>Identifies the proxies that require the given granularity to be used by a faithfulness measure</skos:definition>
 	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&efemo;higher_access_level">
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
 		<rdfs:label>Higher Access Level</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Model_Access_Level"/>
+		<rdfs:range rdf:resource="&efemo;Model_Access_Level"/>
 		<owl:inverseOf rdf:resource="&efemo;lower_access_level"/>
 		<skos:definition>Specifices that this model access level requires more detailed access than another model access level</skos:definition>
 		<AnnotationVocabulary:explanatoryNote>Partial ordering</AnnotationVocabulary:explanatoryNote>
 	</owl:ObjectProperty>
 	
 	<owl:NamedIndividual rdf:about="&efemo;human_annotation_method">
+		<rdf:type rdf:resource="&efemo;Feature-based_Evaluation_Method"/>
 		<rdf:type rdf:resource="&efemo;Human_Based_Evaluation_Method"/>
 		<rdf:type rdf:resource="&efemo;White_Box_Evaluation_Method"/>
 		<rdfs:label>Human-Annotation Method</rdfs:label>
+		<efemo:method_requires_assumption rdf:resource="&efemo;logic_trap_1"/>
 		<rdfs:isDefinedBy>Ju, Y., Zhang, Y., Yang, Z., Jiang, Z., Liu, K., &amp; Zhao, J. (2022, May). Logic traps in evaluating attribution scores. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) (pp. 5911-5922).</rdfs:isDefinedBy>
 		<skos:definition>A human-based evaluation method which verifies the validity of the attribution scores by comparing them with the human problem-solving process</skos:definition>
 		<AnnotationVocabulary:directSource>Ju, Y., Zhang, Y., Yang, Z., Jiang, Z., Liu, K., &amp; Zhao, J. (2022, May). Logic traps in evaluating attribution scores. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) (pp. 5911-5922).</AnnotationVocabulary:directSource>
@@ -637,18 +796,10 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:adaptedFrom>Leiter, C., Lertvittayakumjorn, P., Fomicheva, M., Zhao, W., Gao, Y., &amp; Eger, S. (2024). Towards explainable evaluation metrics for machine translation. Journal of Machine Learning Research, 25(75), 1-49.</AnnotationVocabulary:adaptedFrom>
 	</owl:NamedIndividual>
 	
-	<owl:ObjectProperty rdf:about="&efemo;inferred_from_assumption">
-		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
-		<rdfs:label>Inferred from Assumption</rdfs:label>
-		<rdfs:domain rdf:resource="&efemo;Corollary"/>
-		<rdfs:range rdf:resource="&efemo;Assumption"/>
-		<skos:definition>Specifies the assumption that the corollary naturally follows from</skos:definition>
-		<AnnotationVocabulary:adaptedFrom>Merriam-Webster: Corollary, Definition 1 - https://www.merriam-webster.com/dictionary/corollary</AnnotationVocabulary:adaptedFrom>
-	</owl:ObjectProperty>
-	
 	<owl:NamedIndividual rdf:about="&efemo;input_sensitivity_proxy">
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdfs:label>Input Sensitivity Proxy</rdfs:label>
+		<efemo:proxy_requires_access_level rdf:resource="&efemo;inference_access_level"/>
 		<rdfs:isDefinedBy>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:isDefinedBy>
 		<skos:definition>A faithfulness proxy that states that the explanations should be sensitivie (resp. insensitive) to changes in the input that influence (resp. do not influence) the prediction</skos:definition>
 		<AnnotationVocabulary:directSource>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</AnnotationVocabulary:directSource>
@@ -665,7 +816,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:NamedIndividual rdf:about="&efemo;linearity_corollary">
 		<rdf:type rdf:resource="&efemo;Corollary"/>
 		<rdfs:label>Linearity Corollary</rdfs:label>
-		<efemo:inferred_from_assumption rdf:resource="&efemo;linearity_assumption"/>
+		<efemo:corollary_inferred_from_assumption rdf:resource="&efemo;linearity_assumption"/>
 		<rdfs:isDefinedBy>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</rdfs:isDefinedBy>
 		<skos:definition>The corollary to the Linearity Assumption that under certain circumstances, heatmap interpretations can be faithful</skos:definition>
 		<AnnotationVocabulary:directSource>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</AnnotationVocabulary:directSource>
@@ -702,12 +853,6 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>The model specificity of targeting LSTM-based models</skos:definition>
 	</owl:NamedIndividual>
 	
-	<owl:ObjectProperty rdf:about="&efemo;makes_assumption">
-		<rdfs:label>Makes Assumption</rdfs:label>
-		<rdfs:range rdf:resource="&efemo;Assumption"/>
-		<skos:definition>Specifices the assumption that is relied upon</skos:definition>
-	</owl:ObjectProperty>
-	
 	<owl:NamedIndividual rdf:about="&efemo;meaningful_perturbation_method">
 		<rdf:type rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
 		<rdf:type rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
@@ -717,17 +862,144 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Ju, Y., Zhang, Y., Yang, Z., Jiang, Z., Liu, K., &amp; Zhao, J. (2022, May). Logic traps in evaluating attribution scores. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) (pp. 5911-5922).</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
 	
-	<owl:ObjectProperty rdf:about="&efemo;measures_proxy">
-		<rdfs:label>Measures Proxy</rdfs:label>
+	<owl:ObjectProperty rdf:about="&efemo;measure_evaluates_explanations">
+		<rdfs:label>Measure Evaluates Explanations</rdfs:label>
 		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
-		<rdfs:range rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdfs:range rdf:resource="&efemo;Collection_of_Explanations"/>
+		<skos:definition>Specifies the collection of explanations that a faithfulness measure uses to determine faithfulness</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;measure_evaluates_modality">
+		<rdfs:label>Measure Evaluates Modality</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:range rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+		<owl:inverseOf rdf:resource="&efemo;modality_used_by_faithfulness_measure"/>
 		<owl:propertyChainAxiom rdf:parseType="Collection">
-			<rdf:Description rdf:about="&efemo;uses_method">
+			<rdf:Description rdf:about="&efemo;faithfulness_measure_uses_proxy">
 			</rdf:Description>
-			<rdf:Description rdf:about="&efemo;evaluates_proxy">
+			<rdf:Description rdf:about="&efemo;proxy_requires_modality">
 			</rdf:Description>
 		</owl:propertyChainAxiom>
-		<skos:definition>Specifices the faithfulness proxy that the faithfulness measure evaluates in place of faithfulness</skos:definition>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&efemo;measure_evaluates_explanations">
+			</rdf:Description>
+			<rdf:Description rdf:about="https://www.omg.org/spec/Commons/Collections/comprises">
+			</rdf:Description>
+			<rdf:Description rdf:about="https://purl.org/heals/eo#hasPresentation">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&efemo;measure_uses_method">
+			</rdf:Description>
+			<rdf:Description rdf:about="&efemo;method_requires_modality">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<skos:definition>Specifies the modality of the explanations that a faithfulness measure can determine the faithfulness of</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;measure_has_granularity">
+		<rdfs:label>Measure has Granularity</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:range rdf:resource="&efemo;Granularity"/>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&efemo;faithfulness_measure_uses_proxy">
+			</rdf:Description>
+			<rdf:Description rdf:about="&efemo;proxy_requires_granularity">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<skos:definition>Specifies the level of granularity at which a faithfulness measure operates</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;measure_has_model_specificity">
+		<rdfs:label>Measure has Model Specificity</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:range rdf:resource="&efemo;Model_Specificity"/>
+		<owl:inverseOf rdf:resource="&efemo;specificity_required_by_measure"/>
+		<skos:definition>Specifies how specific the model must be to apply the faithfulness measure</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;measure_makes_assumption">
+		<rdfs:label>Measure Makes Assumption</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:range rdf:resource="&efemo;Assumption"/>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&efemo;faithfulness_measure_uses_proxy">
+			</rdf:Description>
+			<rdf:Description rdf:about="&efemo;proxy_requires_assumption">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&efemo;measure_uses_method">
+			</rdf:Description>
+			<rdf:Description rdf:about="&efemo;method_requires_assumption">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<skos:definition>Specifices the assumption that is relied upon by the faithfulness measure</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;measure_requires_access_level">
+		<rdfs:label>Measure Requires Access Level</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:range rdf:resource="&efemo;Model_Access_Level"/>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&efemo;faithfulness_measure_uses_proxy">
+			</rdf:Description>
+			<rdf:Description rdf:about="&efemo;proxy_requires_access_level">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&efemo;measure_uses_method">
+			</rdf:Description>
+			<rdf:Description rdf:about="&efemo;method_requires_access_level">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<skos:definition>Specifies the model access level that the faithfulness measure requires</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;measure_uses_method">
+		<rdfs:label>Measure Uses Method</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:range rdf:resource="&efemo;Evaluation_Method"/>
+		<owl:inverseOf rdf:resource="&efemo;method_used_by_measure"/>
+		<skos:definition>Specifies an evaluation method used by the faithfulness measure</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;method_evaluates_proxy">
+		<rdfs:label>Method Evaluates Proxy</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<owl:inverseOf rdf:resource="&efemo;proxy_evaluated_by_method"/>
+		<skos:definition>Specifies a faithfulness proxy evaluated by the evaluation method</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;method_requires_access_level">
+		<rdfs:label>Method Requires Access Level</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:range rdf:resource="&efemo;Model_Access_Level"/>
+		<owl:inverseOf rdf:resource="&efemo;model_access_level_required_by_method"/>
+		<skos:definition>Specifies an access level that must be available in order for the method to be used</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;method_requires_assumption">
+		<rdfs:label>Method Requires Assumption</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:range rdf:resource="&efemo;Assumption"/>
+		<skos:definition>Specifies an assumption that must hold in order for the method to be used</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;method_requires_modality">
+		<rdfs:label>Method Requires Modality</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:range rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+		<owl:inverseOf rdf:resource="&efemo;modality_required_by_method"/>
+		<skos:definition>Specifies the explanation modality required in order to for a faithfulness measure to use the evaluation method</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;method_used_by_measure">
+		<rdfs:label>Method used by Measure</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<skos:definition>Specifies the available faithfulness measures that use a given method</skos:definition>
 	</owl:ObjectProperty>
 	
 	<owl:NamedIndividual rdf:about="&efemo;minimality_proxy">
@@ -737,6 +1009,35 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>A faithfulness proxy that states that an explanation should include only the smallest number of necessary factors</skos:definition>
 		<AnnotationVocabulary:directSource>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
+	
+	<owl:ObjectProperty rdf:about="&efemo;modality_required_by_method">
+		<rdfs:label>Modality Required by Method</rdfs:label>
+		<rdfs:domain rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+		<rdfs:range rdf:resource="&efemo;Evaluation_Method"/>
+		<skos:definition>Specifies an evaluation method that requires the explanation modality in order to be used by a faithfulness measure</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;modality_required_by_proxy">
+		<rdfs:label>Modality Required by Proxy</rdfs:label>
+		<rdfs:domain rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<owl:inverseOf rdf:resource="&efemo;proxy_requires_modality"/>
+		<skos:definition>Specifies a proxy that requires the explanation modality to be used by a faithfulness measure</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;modality_used_by_faithfulness_measure">
+		<rdfs:label>Modality used by Faithfulness Measure</rdfs:label>
+		<rdfs:domain rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<skos:definition>Specifies the faithfulness measure that can be used with a given modality of explanations</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;model_access_level_required_by_method">
+		<rdfs:label>Model Access Level Required by Method</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Model_Access_Level"/>
+		<rdfs:range rdf:resource="&efemo;Evaluation_Method"/>
+		<skos:definition>Specifies an evaluation method that requires a model access level</skos:definition>
+	</owl:ObjectProperty>
 	
 	<owl:NamedIndividual rdf:about="&efemo;model_agnostic">
 		<rdf:type rdf:resource="&efemo;Model_Specificity"/>
@@ -757,7 +1058,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:NamedIndividual rdf:about="&efemo;model_corollary_1">
 		<rdf:type rdf:resource="&efemo;Corollary"/>
 		<rdfs:label>Model Corollary 1</rdfs:label>
-		<efemo:inferred_from_assumption rdf:resource="&efemo;model_assumption"/>
+		<efemo:corollary_inferred_from_assumption rdf:resource="&efemo;model_assumption"/>
 		<rdfs:isDefinedBy>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</rdfs:isDefinedBy>
 		<skos:definition>The corollary to the Model Assumption that an interpretation system is unfaithful if it results in different interpretations of models that make the same decisions</skos:definition>
 		<AnnotationVocabulary:directSource>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</AnnotationVocabulary:directSource>
@@ -766,7 +1067,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:NamedIndividual rdf:about="&efemo;model_corollary_2">
 		<rdf:type rdf:resource="&efemo;Corollary"/>
 		<rdfs:label>Model Corollary 2</rdfs:label>
-		<efemo:inferred_from_assumption rdf:resource="&efemo;model_assumption"/>
+		<efemo:corollary_inferred_from_assumption rdf:resource="&efemo;model_assumption"/>
 		<rdfs:isDefinedBy>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</rdfs:isDefinedBy>
 		<skos:definition>The corollary to the Model Assumption that an interpretation is unfaithful if it results in different decisions than the model it interprets</skos:definition>
 		<AnnotationVocabulary:directSource>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</AnnotationVocabulary:directSource>
@@ -776,17 +1077,19 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;stability_evaluation_method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdfs:label>Model Sensitivity Proxy</rdfs:label>
+		<efemo:proxy_requires_assumption rdf:resource="&efemo;model_assumption"/>
+		<efemo:proxy_requires_granularity rdf:resource="&efemo;global_scope"/>
 		<rdfs:isDefinedBy>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:isDefinedBy>
 		<skos:definition>A faithfulness proxy that states that the explanations should be sensitivie (resp. insensitive) to changes in the model that influence (resp. do not influence) the prediction</skos:definition>
 		<AnnotationVocabulary:directSource>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</AnnotationVocabulary:directSource>
@@ -811,25 +1114,27 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:NamedIndividual rdf:about="&efemo;polarity_consistency_proxy">
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdf:type rdf:resource="&efemo;Feature-based_Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Axiomatic_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdfs:label>Polarity Consistency Proxy</rdfs:label>
+		<efemo:proxy_requires_assumption rdf:resource="&efemo;linearity_assumption"/>
 		<rdfs:isDefinedBy>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:isDefinedBy>
 		<skos:definition>A faithfulness proxy that uses the consistency between importance-score--based explanations and the impact polarity on model predictions as a faithfulness score</skos:definition>
 		<skos:example>If an explanation method assigns a positive weight to a feature as its contribution to some predicted label, then after removing this feature, the model confidence in the label should be suppressed</skos:example>
@@ -847,7 +1152,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:NamedIndividual rdf:about="&efemo;prediction_corollary">
 		<rdf:type rdf:resource="&efemo;Corollary"/>
 		<rdfs:label>Prediction Corollary</rdfs:label>
-		<efemo:inferred_from_assumption rdf:resource="&efemo;prediction_assumption"/>
+		<efemo:corollary_inferred_from_assumption rdf:resource="&efemo;prediction_assumption"/>
 		<rdfs:isDefinedBy>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</rdfs:isDefinedBy>
 		<skos:definition>The corollary to the Prediction Assumption that an interpretation system is unfaithful if it provides different interpretations for similar inputs and outputs</skos:definition>
 		<AnnotationVocabulary:directSource>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</AnnotationVocabulary:directSource>
@@ -860,24 +1165,59 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:adaptedFrom>Bastings, J., &amp; Filippova, K. (2020). The elephant in the interpretability room: Why use attention as explanation when we have saliency methods?. arXiv preprint arXiv:2010.05607.</AnnotationVocabulary:adaptedFrom>
 	</owl:NamedIndividual>
 	
-	<owl:ObjectProperty rdf:about="&efemo;requires_access_level">
-		<rdfs:label>Requires Access Level</rdfs:label>
-		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+	<owl:ObjectProperty rdf:about="&efemo;proxy_evaluated_by_method">
+		<rdfs:label>Proxy Evaluated by Method</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdfs:range rdf:resource="&efemo;Evaluation_Method"/>
+		<skos:definition>Specifies an evaluation method that evaluates the faithfulness proxy</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;proxy_requires_access_level">
+		<rdfs:label>Proxy Requires Access Level</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdfs:range rdf:resource="&efemo;Model_Access_Level"/>
-		<skos:definition>Specifies the model access level that the faithfulness measure requires</skos:definition>
+		<skos:definition>Specifies the model access level required in order for a faithfulness measure to use the proxy</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;proxy_requires_assumption">
+		<rdfs:label>Proxy Requires Assumption</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdfs:range rdf:resource="&efemo;Assumption"/>
+		<skos:definition>specifies the assumption that must hold for the proxy to be used</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;proxy_requires_granularity">
+		<rdfs:label>Proxy Requires Granularity</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdfs:range rdf:resource="&efemo;Granularity"/>
+		<skos:definition>Specifies the granularity that is required for a faithfulness measure that uses the given faithfulness proxy</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;proxy_requires_modality">
+		<rdfs:label>Proxy Requires Modality</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdfs:range rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+		<skos:definition>Specifies the explanation modality necessary for a faithfulness measure to use the proxy</skos:definition>
+	</owl:ObjectProperty>
+	
+	<owl:ObjectProperty rdf:about="&efemo;proxy_used_by_faithfulness_measure">
+		<rdfs:label>Proxy used by Faithfulness Measure</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Proxy"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<skos:definition>Specifies the faithfulness measures that use a given proxy</skos:definition>
 	</owl:ObjectProperty>
 	
 	<owl:NamedIndividual rdf:about="&efemo;robustness_equivalence_proxy">
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Axiomatic_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
@@ -891,11 +1231,13 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Robustness_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
 		<rdfs:label>Robustness Proxy</rdfs:label>
+		<efemo:proxy_requires_access_level rdf:resource="&efemo;inference_access_level"/>
+		<efemo:proxy_requires_assumption rdf:resource="&efemo;prediction_assumption"/>
 		<rdfs:isDefinedBy>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</rdfs:isDefinedBy>
 		<skos:definition>A faithfulness proxy that states that an explanation should be invariant to small perturbations in the input</skos:definition>
 		<AnnotationVocabulary:directSource>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</AnnotationVocabulary:directSource>
@@ -911,16 +1253,21 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:NamedIndividual rdf:about="&efemo;sensitivity_to_iterative_masking_evaluation_method">
 		<rdf:type rdf:resource="&efemo;Evaluation_Method"/>
+		<rdf:type rdf:resource="&efemo;Feature-based_Evaluation_Method"/>
 		<rdfs:label>Sensitivity to Iterative Masking Evaluation Method</rdfs:label>
 		<terms:description>An evaluation method that iteratively removes salient features and measures model responses</terms:description>
+		<efemo:method_requires_access_level rdf:resource="&efemo;inference_access_level"/>
+		<efemo:method_requires_assumption rdf:resource="&efemo;linearity_assumption"/>
 		<rdfs:isDefinedBy>Crothers, E., Viktor, H., &amp; Japkowicz, N. (2024, September). Robust Infidelity: When Faithfulness Measures on Masked Language Models Are Misleading. In International Conference on Machine Learning, Optimization, and Data Science (pp. 133-147). Cham: Springer Nature Switzerland.</rdfs:isDefinedBy>
 		<AnnotationVocabulary:directSource>Crothers, E., Viktor, H., &amp; Japkowicz, N. (2024, September). Robust Infidelity: When Faithfulness Measures on Masked Language Models Are Misleading. In International Conference on Machine Learning, Optimization, and Data Science (pp. 133-147). Cham: Springer Nature Switzerland.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
 	
 	<owl:ObjectProperty rdf:about="&efemo;similar_measure_to">
+		<rdf:type rdf:resource="&owl;SymmetricProperty"/>
 		<rdfs:label>Similar Measure To</rdfs:label>
 		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
 		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<owl:inverseOf rdf:resource="&efemo;similar_measure_to"/>
 		<skos:definition>Specifies a measure that measures the same proxy, uses the same type of evaluation method, evaluates the same modality, has the same granularity level, the same model specificity, and at least one shared assumption and shared access level</skos:definition>
 	</owl:ObjectProperty>
 	
@@ -928,7 +1275,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;access_the_classifier_method"/>
 			</owl:Restriction>
 		</rdf:type>
@@ -942,7 +1289,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type>
 			<owl:Restriction>
-				<owl:onProperty rdf:resource="&efemo;evaluated_by_method"/>
+				<owl:onProperty rdf:resource="&efemo;proxy_evaluated_by_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Axiomatic_Evaluation_Method"/>
 			</owl:Restriction>
 		</rdf:type>
@@ -951,6 +1298,13 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>A faithfulness proxy that states that the explanation should be correct and truthful</skos:definition>
 		<AnnotationVocabulary:directSource>Zhou, J., Gandomi, A. H., Chen, F., &amp; Holzinger, A. (2021). Evaluating the quality of machine learning explanations: A survey on methods and metrics. Electronics, 10(5), 593.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
+	
+	<owl:ObjectProperty rdf:about="&efemo;specificity_required_by_measure">
+		<rdfs:label>Specificity Required by Measure</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Model_Specificity"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<skos:definition>Specifies the available faithfulness measures for a given model specificity</skos:definition>
+	</owl:ObjectProperty>
 	
 	<owl:Class rdf:about="&efemo;stability_evaluation_method">
 		<rdfs:subClassOf rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
@@ -962,6 +1316,24 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:Class rdf:about="&efemo;surrogate_model_method">
 		<rdfs:subClassOf rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_access_level"/>
+				<owl:hasValue rdf:resource="&efemo;inference_access_level"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;model_assumption"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;model_corollary_1"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
 		<rdfs:label>Surrogate-Model Method</rdfs:label>
 		<rdfs:isDefinedBy>Arya, V., Bellamy, R. K., Chen, P. Y., Dhurandhar, A., Hind, M., Hoffman, S. C., ... &amp; Zhang, Y. (2019). One explanation does not fit all: A toolkit and taxonomy of ai explainability techniques. arXiv preprint arXiv:1909.03012.</rdfs:isDefinedBy>
 		<skos:definition>A computational-based evaluation method that build a second, usually directly interpretable model, that approximates a more complex model</skos:definition>
@@ -974,39 +1346,11 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>The model specificity of targeting transformer-based models</skos:definition>
 	</owl:NamedIndividual>
 	
-	<owl:ObjectProperty rdf:about="&efemo;uses_method">
-		<rdfs:label>Uses Method</rdfs:label>
-		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
-		<rdfs:range rdf:resource="&efemo;Evaluation_Method"/>
-		<skos:definition>Specifies an evaluation method used by the faithfulness measure</skos:definition>
-	</owl:ObjectProperty>
-	
-	<swrl:Variable rdf:about="&ontologies;em">
-	</swrl:Variable>
-	
-	<swrl:Variable rdf:about="&ontologies;fem">
-	</swrl:Variable>
-	
-	<swrl:Variable rdf:about="&ontologies;fm">
-	</swrl:Variable>
-	
 	<owl:AnnotationProperty rdf:about="&ontologies;higher_access_level">
 	</owl:AnnotationProperty>
 	
 	<owl:AnnotationProperty rdf:about="&ontologies;inferred_from_assumption">
 	</owl:AnnotationProperty>
-	
-	<swrl:Variable rdf:about="&ontologies;m">
-	</swrl:Variable>
-	
-	<swrl:Variable rdf:about="&ontologies;ms">
-	</swrl:Variable>
-	
-	<swrl:Variable rdf:about="&ontologies;pem">
-	</swrl:Variable>
-	
-	<swrl:Variable rdf:about="&ontologies;rem">
-	</swrl:Variable>
 	
 	<owl:Class rdf:about="https://purl.org/heals/eo#ExplanationModality">
 		<rdfs:subClassOf rdf:resource="http://semanticscience.org/resource/SIO_000612"/>
@@ -1021,479 +1365,209 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<dc:description>a property that captures what form of output an entity a is presented in</dc:description>
 	</owl:ObjectProperty>
 	
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness method requires access beyond inference, then it&apos;s model specific</rdfs:label>
-		<rdfs:comment></rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:classPredicate rdf:resource="&efemo;Faithfulness_Measure"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&ontologies;al"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;al"/>
-				<swrl:argument2 rdf:resource="&efemo;inference_access_level"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;higher_access_level"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&ontologies;ms"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;has_model_specificity"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;ms"/>
-				<swrl:classPredicate rdf:resource="&efemo;Model_Specific"/>
-			</swrl:ClassAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses a find alignment method, then it makes the Logic Trap 1 assumption</rdfs:label>
-		<rdfs:comment>Alangari, N., El Bachir Menai, M., Mathkour, H., &amp; Almosallam, I. (2023). Exploring evaluation methods for interpretable machine learning: A survey. Information, 14(8), 469.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&ontologies;em"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;uses_method"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;em"/>
-				<swrl:classPredicate rdf:resource="&efemo;find_alignment_method"/>
-			</swrl:ClassAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&efemo;logic_trap_1"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses a surrogate model method, then it makes the Model Assumption</rdfs:label>
-		<rdfs:comment>Arya, V., Bellamy, R. K., Chen, P. Y., Dhurandhar, A., Hind, M., Hoffman, S. C., ... &amp; Zhang, Y. (2019). One explanation does not fit all: A toolkit and taxonomy of ai explainability techniques. arXiv preprint arXiv:1909.03012.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&ontologies;em"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;uses_method"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;em"/>
-				<swrl:classPredicate rdf:resource="&efemo;surrogate_model_method"/>
-			</swrl:ClassAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&efemo;model_assumption"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measures uses a surrogate model method, it requires inference-level access and assumes Model Corollary 1</rdfs:label>
-		<rdfs:comment>Arya, V., Bellamy, R. K., Chen, P. Y., Dhurandhar, A., Hind, M., Hoffman, S. C., ... &amp; Zhang, Y. (2019). One explanation does not fit all: A toolkit and taxonomy of ai explainability techniques. arXiv preprint arXiv:1909.03012.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&ontologies;em"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;uses_method"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;em"/>
-				<swrl:classPredicate rdf:resource="&efemo;surrogate_model_method"/>
-			</swrl:ClassAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;inference_access_level"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;model_corollary_1"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Sensitivity to Iterative Masking method, it must evaluate feature-based explanations, requires inference-level access, and makes the Linearity assumption</rdfs:label>
-		<rdfs:comment>Crothers, E., Viktor, H., &amp; Japkowicz, N. (2024, September). Robust Infidelity: When Faithfulness Measures on Masked Language Models Are Misleading. In International Conference on Machine Learning, Optimization, and Data Science (pp. 133-147). Cham: Springer Nature Switzerland.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;sensitivity_to_iterative_masking_evaluation_method"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;uses_method"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&ontologies;em"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;evaluates_modality"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;em"/>
-				<swrl:classPredicate rdf:resource="&efemo;Feature_Based_Modality"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&efemo;inference_access_level"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&efemo;linearity_assumption"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness method uses the Completeness to Model Evaluation proxy, then it has a global scope</rdfs:label>
-		<rdfs:comment>Gilpin, L. H., Bau, D., Yuan, B. Z., Bajwa, A., Specter, M., &amp; Kagal, L. (2018, October). Explaining explanations: An overview of interpretability of machine learning. In 2018 IEEE 5th International Conference on data science and advanced analytics (DSAA) (pp. 80-89). IEEE.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:classPredicate rdf:resource="&efemo;Faithfulness_Measure"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;completeness_to_model_evaluation_proxy"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;global_scope"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;has_granularity"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Erasure method, it must evaluates feature-based explanations and makes the Linearity assumption</rdfs:label>
-		<rdfs:comment>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;erasure_method"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;uses_method"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&ontologies;em"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;evaluates_modality"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;em"/>
-				<swrl:classPredicate rdf:resource="&efemo;Feature_Based_Modality"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&efemo;linearity_assumption"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Robustness proxy, it requires inference-level access and makes the Prediction Assumption</rdfs:label>
-		<rdfs:comment>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;robustness_proxy"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;inference_access_level"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;prediction_assumption"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Human-Annotation method, it must evaluate feature-based explanations and makes the Logic Trap 1 assumption</rdfs:label>
-		<rdfs:comment>Ju, Y., Zhang, Y., Yang, Z., Jiang, Z., Liu, K., &amp; Zhao, J. (2022, May). Logic traps in evaluating attribution scores. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) (pp. 5911-5922).</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;human_annotation_method"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;uses_method"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&ontologies;em"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;evaluates_modality"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;em"/>
-				<swrl:classPredicate rdf:resource="&efemo;Feature_Based_Modality"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fem"/>
-				<swrl:argument2 rdf:resource="&efemo;logic_trap_1"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses a perturbation-based evaluation method, then it makes the Linearity Assumption and requires inference-level access</rdfs:label>
-		<rdfs:comment>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&ontologies;pem"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;uses_method"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;pem"/>
-				<swrl:classPredicate rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
-			</swrl:ClassAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;linearity_assumption"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;inference_access_level"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses a robustnes evaluation method, then it makes the Prediction Assumption and requires inference-level access</rdfs:label>
-		<rdfs:comment>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&ontologies;rem"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;uses_method"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;rem"/>
-				<swrl:classPredicate rdf:resource="&efemo;Robustness_Evaluation_Method"/>
-			</swrl:ClassAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;prediction_assumption"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;inference_access_level"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Feature Importance Agreement proxy, it makes the Linearity assumption and must evaluate a feature-based explanation modality.</rdfs:label>
-		<rdfs:comment>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;feature_importance_agreement_proxy"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&ontologies;em"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;evaluates_modality"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;em"/>
-				<swrl:classPredicate rdf:resource="&efemo;Feature_Based_Modality"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;linearity_assumption"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Input Sensitivity proxy, then it require inference-level access</rdfs:label>
-		<rdfs:comment>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;input_sensitivity_proxy"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;inference_access_level"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Polarity Consistency proxy, it makes the Linearity Corollary and must evaluate feature-based explanations</rdfs:label>
-		<rdfs:comment>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;polarity_consistency_proxy"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&ontologies;em"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;evaluates_modality"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;em"/>
-				<swrl:classPredicate rdf:resource="&efemo;Feature_Based_Modality"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;linearity_corollary"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness method uses the Model Sensitivity proxy, then it has a global scope and makes the Model Assumption</rdfs:label>
-		<rdfs:comment>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;model_sensitivity_proxy"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;global_scope"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;has_granularity"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;model_assumption"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;makes_assumption"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Continuity proxy, it requires inference level acess</rdfs:label>
-		<rdfs:comment>Nejadgholi, I., Omidyeganeh, M., Drouin, M. A., &amp; Boisvert, J. (2025). A Taxonomy for Design and Evaluation of Prompt-Based Natural Language Explanations. arXiv preprint arXiv:2507.10585.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;continuity_proxy"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;inference_access_level"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;requires_access_level"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Completeness proxy, then it has a global scope</rdfs:label>
-		<rdfs:comment>Zhou, J., Gandomi, A. H., Chen, F., &amp; Holzinger, A. (2021). Evaluating the quality of machine learning explanations: A survey on methods and metrics. Electronics, 10(5), 593.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:classPredicate rdf:resource="&efemo;Faithfulness_Measure"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;completeness_proxy"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;global_scope"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;has_granularity"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:head>
-	</swrl:Imp>
-	<swrl:Imp>
-		<rdfs:label>If a faithfulness measure uses the Soundness proxy with a feature-based explanation modality, it must use a computational method</rdfs:label>
-		<rdfs:comment>Zhou, J., Gandomi, A. H., Chen, F., &amp; Holzinger, A. (2021). Evaluating the quality of machine learning explanations: A survey on methods and metrics. Electronics, 10(5), 593.</rdfs:comment>
-		<swrla:isRuleEnabled rdf:datatype="&xsd;boolean">true</swrla:isRuleEnabled>
-		<swrl:body rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:classPredicate rdf:resource="&efemo;Faithfulness_Measure"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&efemo;soundness_proxy"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;measures_proxy"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&ontologies;em"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;evaluates_modality"/>
-			</swrl:IndividualPropertyAtom>
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;em"/>
-				<swrl:classPredicate rdf:resource="&efemo;Feature_Based_Modality"/>
-			</swrl:ClassAtom>
-			<swrl:IndividualPropertyAtom>
-				<swrl:argument1 rdf:resource="&ontologies;fm"/>
-				<swrl:argument2 rdf:resource="&ontologies;m"/>
-				<swrl:propertyPredicate rdf:resource="&efemo;uses_method"/>
-			</swrl:IndividualPropertyAtom>
-		</swrl:body>
-		<swrl:head rdf:parseType="Collection">
-			<swrl:ClassAtom>
-				<swrl:argument1 rdf:resource="&ontologies;m"/>
-				<swrl:classPredicate rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
-			</swrl:ClassAtom>
-		</swrl:head>
-	</swrl:Imp>
+	<owl:Class rdf:about="https://www.omg.org/spec/Commons/Documents/Document">
+	</owl:Class>
+	
+	<owl:Axiom>
+		<terms:source>Alangari, N., El Bachir Menai, M., Mathkour, H., &amp; Almosallam, I. (2023). Exploring evaluation methods for interpretable machine learning: A survey. Information, 14(8), 469.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdfs;subClassOf"/>
+		<owl:annotatedSource rdf:resource="&efemo;find_alignment_method"/>
+		<owl:annotatedTarget>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;logic_trap_1"/>
+			</owl:Restriction>
+		</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Arya, V., Bellamy, R. K., Chen, P. Y., Dhurandhar, A., Hind, M., Hoffman, S. C., ... &amp; Zhang, Y. (2019). One explanation does not fit all: A toolkit and taxonomy of ai explainability techniques. arXiv preprint arXiv:1909.03012.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdfs;subClassOf"/>
+		<owl:annotatedSource rdf:resource="&efemo;surrogate_model_method"/>
+		<owl:annotatedTarget>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_access_level"/>
+				<owl:hasValue rdf:resource="&efemo;inference_access_level"/>
+			</owl:Restriction>
+		</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Arya, V., Bellamy, R. K., Chen, P. Y., Dhurandhar, A., Hind, M., Hoffman, S. C., ... &amp; Zhang, Y. (2019). One explanation does not fit all: A toolkit and taxonomy of ai explainability techniques. arXiv preprint arXiv:1909.03012.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdfs;subClassOf"/>
+		<owl:annotatedSource rdf:resource="&efemo;surrogate_model_method"/>
+		<owl:annotatedTarget>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;model_assumption"/>
+			</owl:Restriction>
+		</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Arya, V., Bellamy, R. K., Chen, P. Y., Dhurandhar, A., Hind, M., Hoffman, S. C., ... &amp; Zhang, Y. (2019). One explanation does not fit all: A toolkit and taxonomy of ai explainability techniques. arXiv preprint arXiv:1909.03012.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdfs;subClassOf"/>
+		<owl:annotatedSource rdf:resource="&efemo;surrogate_model_method"/>
+		<owl:annotatedTarget>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;model_corollary_1"/>
+			</owl:Restriction>
+		</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Crothers, E., Viktor, H., &amp; Japkowicz, N. (2024, September). Robust Infidelity: When Faithfulness Measures on Masked Language Models Are Misleading. In International Conference on Machine Learning, Optimization, and Data Science (pp. 133-147). Cham: Springer Nature Switzerland.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;method_requires_access_level"/>
+		<owl:annotatedSource rdf:resource="&efemo;sensitivity_to_iterative_masking_evaluation_method"/>
+		<owl:annotatedTarget rdf:resource="&efemo;inference_access_level"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Crothers, E., Viktor, H., &amp; Japkowicz, N. (2024, September). Robust Infidelity: When Faithfulness Measures on Masked Language Models Are Misleading. In International Conference on Machine Learning, Optimization, and Data Science (pp. 133-147). Cham: Springer Nature Switzerland.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;method_requires_assumption"/>
+		<owl:annotatedSource rdf:resource="&efemo;sensitivity_to_iterative_masking_evaluation_method"/>
+		<owl:annotatedTarget rdf:resource="&efemo;linearity_assumption"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Crothers, E., Viktor, H., &amp; Japkowicz, N. (2024, September). Robust Infidelity: When Faithfulness Measures on Masked Language Models Are Misleading. In International Conference on Machine Learning, Optimization, and Data Science (pp. 133-147). Cham: Springer Nature Switzerland.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdf;type"/>
+		<owl:annotatedSource rdf:resource="&efemo;sensitivity_to_iterative_masking_evaluation_method"/>
+		<owl:annotatedTarget rdf:resource="&efemo;Feature-based_Evaluation_Method"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Gilpin, L. H., Bau, D., Yuan, B. Z., Bajwa, A., Specter, M., &amp; Kagal, L. (2018, October). Explaining explanations: An overview of interpretability of machine learning. In 2018 IEEE 5th International Conference on data science and advanced analytics (DSAA) (pp. 80-89). IEEE.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_granularity"/>
+		<owl:annotatedSource rdf:resource="&efemo;completeness_to_model_evaluation_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;global_scope"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;method_requires_assumption"/>
+		<owl:annotatedSource rdf:resource="&efemo;erasure_method"/>
+		<owl:annotatedTarget rdf:resource="&efemo;linearity_assumption"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_access_level"/>
+		<owl:annotatedSource rdf:resource="&efemo;robustness_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;inference_access_level"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_assumption"/>
+		<owl:annotatedSource rdf:resource="&efemo;robustness_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;prediction_assumption"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdf;type"/>
+		<owl:annotatedSource rdf:resource="&efemo;erasure_method"/>
+		<owl:annotatedTarget rdf:resource="&efemo;Feature-based_Evaluation_Method"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Ju, Y., Zhang, Y., Yang, Z., Jiang, Z., Liu, K., &amp; Zhao, J. (2022, May). Logic traps in evaluating attribution scores. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) (pp. 5911-5922).</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;method_requires_assumption"/>
+		<owl:annotatedSource rdf:resource="&efemo;human_annotation_method"/>
+		<owl:annotatedTarget rdf:resource="&efemo;logic_trap_1"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Ju, Y., Zhang, Y., Yang, Z., Jiang, Z., Liu, K., &amp; Zhao, J. (2022, May). Logic traps in evaluating attribution scores. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) (pp. 5911-5922).</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdf;type"/>
+		<owl:annotatedSource rdf:resource="&efemo;human_annotation_method"/>
+		<owl:annotatedTarget rdf:resource="&efemo;Feature-based_Evaluation_Method"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_access_level"/>
+		<owl:annotatedSource rdf:resource="&efemo;input_sensitivity_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;inference_access_level"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_assumption"/>
+		<owl:annotatedSource rdf:resource="&efemo;feature_importance_agreement_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;linearity_assumption"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_assumption"/>
+		<owl:annotatedSource rdf:resource="&efemo;model_sensitivity_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;model_assumption"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_assumption"/>
+		<owl:annotatedSource rdf:resource="&efemo;polarity_consistency_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;linearity_assumption"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_granularity"/>
+		<owl:annotatedSource rdf:resource="&efemo;model_sensitivity_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;global_scope"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdf;type"/>
+		<owl:annotatedSource rdf:resource="&efemo;feature_importance_agreement_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;Feature-based_Faithfulness_Proxy"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdf;type"/>
+		<owl:annotatedSource rdf:resource="&efemo;polarity_consistency_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;Feature-based_Faithfulness_Proxy"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdfs;subClassOf"/>
+		<owl:annotatedSource rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
+		<owl:annotatedTarget>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_access_level"/>
+				<owl:hasValue rdf:resource="&efemo;inference_access_level"/>
+			</owl:Restriction>
+		</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdfs;subClassOf"/>
+		<owl:annotatedSource rdf:resource="&efemo;Perturbation_Based_Evaluation_Method"/>
+		<owl:annotatedTarget>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;linearity_assumption"/>
+			</owl:Restriction>
+		</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdfs;subClassOf"/>
+		<owl:annotatedSource rdf:resource="&efemo;Robustness_Evaluation_Method"/>
+		<owl:annotatedTarget>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_access_level"/>
+				<owl:hasValue rdf:resource="&efemo;inference_access_level"/>
+			</owl:Restriction>
+		</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</terms:source>
+		<owl:annotatedProperty rdf:resource="&rdfs;subClassOf"/>
+		<owl:annotatedSource rdf:resource="&efemo;Robustness_Evaluation_Method"/>
+		<owl:annotatedTarget>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;method_requires_assumption"/>
+				<owl:hasValue rdf:resource="&efemo;prediction_assumption"/>
+			</owl:Restriction>
+		</owl:annotatedTarget>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Nejadgholi, I., Omidyeganeh, M., Drouin, M. A., &amp; Boisvert, J. (2025). A Taxonomy for Design and Evaluation of Prompt-Based Natural Language Explanations. arXiv preprint arXiv:2507.10585.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_access_level"/>
+		<owl:annotatedSource rdf:resource="&efemo;continuity_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;inference_access_level"/>
+	</owl:Axiom>
+	<owl:Axiom>
+		<terms:source>Zhou, J., Gandomi, A. H., Chen, F., &amp; Holzinger, A. (2021). Evaluating the quality of machine learning explanations: A survey on methods and metrics. Electronics, 10(5), 593.</terms:source>
+		<owl:annotatedProperty rdf:resource="&efemo;proxy_requires_granularity"/>
+		<owl:annotatedSource rdf:resource="&efemo;completeness_proxy"/>
+		<owl:annotatedTarget rdf:resource="&efemo;global_scope"/>
+	</owl:Axiom>
 </rdf:RDF>
