@@ -137,7 +137,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:label>Collection of Explanations</rdfs:label>
-		<rdfs:isDefinedBy>A collection of explanations to be evaluated for a single faithfulness value</rdfs:isDefinedBy>
+		<skos:definition>A collection of explanations to be evaluated for a single faithfulness value</skos:definition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&efemo;Computational_Based_Evaluation_Method">
@@ -1267,7 +1267,6 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:label>Similar Measure To</rdfs:label>
 		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
 		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
-		<owl:inverseOf rdf:resource="&efemo;similar_measure_to"/>
 		<skos:definition>Specifies a measure that measures the same proxy, uses the same type of evaluation method, evaluates the same modality, has the same granularity level, the same model specificity, and at least one shared assumption and shared access level</skos:definition>
 	</owl:ObjectProperty>
 	
