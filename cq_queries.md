@@ -133,7 +133,8 @@ WHERE {
 Do measures M and N share any assumptions?
 
 *SPARQL Query:*
-```PREFIX efemo: <http://www.semanticweb.org/villad4/ontologies/efemo#>
+```
+PREFIX efemo: <http://www.semanticweb.org/villad4/ontologies/efemo#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT ?assumption
 WHERE {
