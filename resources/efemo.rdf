@@ -188,6 +188,19 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>An assumption inferred immediately from another assumption with little or no additional proof</skos:definition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&efemo;Dataset">
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&prov;wasAttributedTo"/>
+				<owl:someValuesFrom rdf:resource="&efemo;dataset_document"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>Dataset</rdfs:label>
+		<rdfs:isDefinedBy>Merriam-Webster: Dataset, https://www.merriam-webster.com/dictionary/dataset</rdfs:isDefinedBy>
+		<skos:definition>a collection of data taken from a single source or intended for a single project</skos:definition>
+		<skos:example>e-SNLI [Camburu, O. M., Rocktäschel, T., Lukasiewicz, T., &amp; Blunsom, P. (2018). e-snli: Natural language inference with natural language explanations. Advances in Neural Information Processing Systems, 31.]</skos:example>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&efemo;Evaluation_Method">
 		<rdfs:subClassOf>
 			<owl:Restriction>
@@ -198,6 +211,48 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:label>Evaluation Method</rdfs:label>
 		<rdfs:isDefinedBy>Merriam-Webster: Method, Definition 1ba - https://www.merriam-webster.com/dictionary/method</rdfs:isDefinedBy>
 		<skos:definition>The technique used to determine the faithfulness of the explanation(s)</skos:definition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&efemo;Explanation_Generation_Method">
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;explanation_generation_method_requires_access_level"/>
+				<owl:someValuesFrom rdf:resource="&efemo;Model_Access_Level"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;produces_modality"/>
+				<owl:someValuesFrom rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&prov;generated"/>
+				<owl:someValuesFrom rdf:resource="http://linkedu.eu/dedalo/explanationPattern.owl#Explanation"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:label>Explanation Generation Method</rdfs:label>
+		<rdfs:isDefinedBy>Merriam-Webster: Generate, Definition 1b: https://www.merriam-webster.com/dictionary/generate</rdfs:isDefinedBy>
+		<skos:definition>A defined process that creates an explanation</skos:definition>
+		<skos:example>{
+&quot;name&quot;: Chain of Thought prompting
+&quot;model access needed&quot;: inference access
+&quot;explanation modality&quot;: natural language, explain-then-predict
+&quot;reference&quot;: Wei, J., Wang, X., Schuurmans, D., Bosma, M., Xia, F., Chi, E., ... &amp; Zhou, D. (2022). Chain-of-thought prompting elicits reasoning in large language models. Advances in neural information processing systems, 35, 24824-24837.
+}</skos:example>
+		<skos:example>{
+&quot;name&quot;: LIME
+&quot;model access needed&quot;: internal weight access
+&quot;explanation modality&quot;: feature attribution, local approximation
+&quot;reference&quot;: Ribeiro, M. T., Singh, S., &amp; Guestrin, C. (2016, August). &quot; Why should i trust you?&quot; Explaining the predictions of any classifier. In Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining (pp. 1135-1144).
+}</skos:example>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&efemo;Explicit_Rule_Based_Modality">
+		<rdfs:subClassOf rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+		<rdfs:label>An explanation modality that is a set of rules that predicts how a model responds based on the input</rdfs:label>
+		<rdfs:label>Explicit Rule-based Modality</rdfs:label>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&efemo;Faithfulness_Measure">
@@ -241,6 +296,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&efemo;measure_uses_method"/>
 				<owl:someValuesFrom rdf:resource="&efemo;Evaluation_Method"/>
+			</owl:Restriction>
+		</rdfs:subClassOf>
+		<rdfs:subClassOf>
+			<owl:Restriction>
+				<owl:onProperty rdf:resource="&efemo;tested_with"/>
+				<owl:someValuesFrom rdf:resource="&efemo;Dataset"/>
 			</owl:Restriction>
 		</rdfs:subClassOf>
 		<rdfs:subClassOf>
@@ -353,6 +414,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>The amount of model internals that must be available for a faithfulness measure to function</skos:definition>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&efemo;Model_Comparison_Evaluation_Method">
+		<rdfs:subClassOf rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:label>Model Comparison Evaluation Method</rdfs:label>
+		<skos:definition>an evaluation method that compares the explanations between two different models</skos:definition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&efemo;Model_Specific">
 		<rdfs:subClassOf rdf:resource="&efemo;Model_Specificity"/>
 		<rdfs:label>Model Specific</rdfs:label>
@@ -453,6 +520,25 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:usageNote>For all instances of this class: makes_assumption Prediction_Assumption</AnnotationVocabulary:usageNote>
 	</owl:Class>
 	
+	<owl:Class rdf:about="&efemo;Self_Predictive_Power_Evaluation_Method">
+		<rdfs:subClassOf rdf:resource="&efemo;Evaluation_Method"/>
+		<rdfs:label>Self-Predictive Power Evaluation Method</rdfs:label>
+		<skos:definition>An evaluation method that compares a model&apos;s decisions when some or all of the explanation has been removed to a baseline</skos:definition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&efemo;Transparent_Model_Evaluation_Method">
+		<rdfs:subClassOf rdf:resource="&efemo;Model_Comparison_Evaluation_Method"/>
+		<rdfs:subClassOf rdf:resource="&efemo;White_Box_Evaluation_Method"/>
+		<rdfs:label>Transparent Model Evaluation Method</rdfs:label>
+		<skos:definition>A white-box evaluation method that gets its ground-truth explanations from a transparent model</skos:definition>
+	</owl:Class>
+	
+	<owl:Class rdf:about="&efemo;Transparent_Task_Evaluation_Method">
+		<rdfs:subClassOf rdf:resource="&efemo;White_Box_Evaluation_Method"/>
+		<rdfs:label>Transparent Task Evaluation Method</rdfs:label>
+		<skos:definition>A white-box evaluation method that gets its ground-truth explanations from a transparent task</skos:definition>
+	</owl:Class>
+	
 	<owl:Class rdf:about="&efemo;White_Box_Evaluation_Method">
 		<rdfs:subClassOf rdf:resource="&efemo;Evaluation_Method"/>
 		<rdfs:label>White-box Evaluation Method</rdfs:label>
@@ -485,6 +571,10 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>A human-based evaluation method designed to assess whether the interpretation provides sufficient information to understand the classifier&apos;s logic</skos:definition>
 		<AnnotationVocabulary:directSource>Alangari, N., El Bachir Menai, M., Mathkour, H., &amp; Almosallam, I. (2023). Exploring evaluation methods for interpretable machine learning: A survey. Information, 14(8), 469.</AnnotationVocabulary:directSource>
 	</owl:Class>
+	
+	<owl:NamedIndividual rdf:about="&efemo;anchor_based_explanation_modality">
+		<rdf:type rdf:resource="&efemo;Explicit_Rule_Based_Modality"/>
+	</owl:NamedIndividual>
 	
 	<owl:ObjectProperty rdf:about="&efemo;assumed_by_faithfulness_measure">
 		<rdfs:label>Assumed by Faithfulness Measure</rdfs:label>
@@ -573,6 +663,11 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Alangari, N., El Bachir Menai, M., Mathkour, H., &amp; Almosallam, I. (2023). Exploring evaluation methods for interpretable machine learning: A survey. Information, 14(8), 469.</AnnotationVocabulary:directSource>
 	</owl:Class>
 	
+	<owl:NamedIndividual rdf:about="&efemo;concept_based_explanation_modality">
+		<rdf:type rdf:resource="&efemo;Feature_Based_Modality"/>
+		<rdfs:label>Concept-based Explanation Modality</rdfs:label>
+	</owl:NamedIndividual>
+	
 	<owl:NamedIndividual rdf:about="&efemo;continuity_proxy">
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type>
@@ -622,11 +717,22 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:NamedIndividual rdf:about="&efemo;cot_explanation_modality">
 		<rdf:type rdf:resource="&efemo;Natural_Language_Modality"/>
-		<rdfs:label>Chain of Thought Explanation Modality</rdfs:label>
+		<rdfs:label>Explain-then-Predict Explanation Modality</rdfs:label>
 		<rdfs:isDefinedBy>Agarwal, C., Tanneru, S. H., &amp; Lakkaraju, H. (2024). Faithfulness vs. plausibility: On the (un) reliability of explanations from large language models. arXiv preprint arXiv:2402.04614.</rdfs:isDefinedBy>
 		<skos:definition>A natural language modality that consists of a sequence of intermediate thoughts or steps that lead to the final decision or response of an LLM</skos:definition>
 		<AnnotationVocabulary:acronym>CoT</AnnotationVocabulary:acronym>
 		<AnnotationVocabulary:directSource>Agarwal, C., Tanneru, S. H., &amp; Lakkaraju, H. (2024). Faithfulness vs. plausibility: On the (un) reliability of explanations from large language models. arXiv preprint arXiv:2402.04614.</AnnotationVocabulary:directSource>
+	</owl:NamedIndividual>
+	
+	<owl:Class rdf:about="&efemo;dataset_document">
+		<rdfs:subClassOf rdf:resource="&prov;Entity"/>
+		<rdfs:subClassOf rdf:resource="https://www.omg.org/spec/Commons/Documents/Document"/>
+		<rdfs:label>Dataset Document</rdfs:label>
+		<skos:definition>A document that introduces a dataset</skos:definition>
+	</owl:Class>
+	
+	<owl:NamedIndividual rdf:about="&efemo;decision_tree_explanation_modality">
+		<rdf:type rdf:resource="&efemo;Explicit_Rule_Based_Modality"/>
 	</owl:NamedIndividual>
 	
 	<owl:NamedIndividual rdf:about="&efemo;embedding_access_level">
@@ -648,6 +754,18 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>A compuational-based evaluation method where parts of the input are erased in expectation that the model&apos;s decision will or will not change, based on the explanation</skos:definition>
 		<AnnotationVocabulary:directSource>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&efemo;example_based_explanation_modality">
+		<rdf:type rdf:resource="&efemo;Natural_Language_Modality"/>
+		<rdfs:label>Example-based Explanation Modality</rdfs:label>
+	</owl:NamedIndividual>
+	
+	<owl:ObjectProperty rdf:about="&efemo;explanation_generation_method_requires_access_level">
+		<rdfs:label>Explanation Generation Method Requires Access Level</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Explanation_Generation_Method"/>
+		<rdfs:range rdf:resource="&efemo;Model_Access_Level"/>
+		<skos:definition>Specifies the model access level that the explanation generation method requires</skos:definition>
+	</owl:ObjectProperty>
 	
 	<owl:ObjectProperty rdf:about="&efemo;explanations_evaluated_by_faithfulness_measure">
 		<rdfs:label>Explanations Evaluated by Faithfulness Measure</rdfs:label>
@@ -720,6 +838,8 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<efemo:higher_access_level rdf:resource="&efemo;attention_weight_access_level"/>
 		<efemo:higher_access_level rdf:resource="&efemo;embedding_access_level"/>
 		<efemo:higher_access_level rdf:resource="&efemo;gradient_access_level"/>
+		<efemo:higher_access_level rdf:resource="&efemo;internal_weight_access_level"/>
+		<efemo:higher_access_level rdf:resource="&efemo;output_logit_access_level"/>
 		<rdfs:isDefinedBy>Leiter, C., Lertvittayakumjorn, P., Fomicheva, M., Zhao, W., Gao, Y., &amp; Eger, S. (2024). Towards explainable evaluation metrics for machine translation. Journal of Machine Learning Research, 25(75), 1-49.</rdfs:isDefinedBy>
 		<skos:definition>The entire model and its internals must be available to the faithfulness measure</skos:definition>
 		<AnnotationVocabulary:directSource>Leiter, C., Lertvittayakumjorn, P., Fomicheva, M., Zhao, W., Gao, Y., &amp; Eger, S. (2024). Towards explainable evaluation metrics for machine translation. Journal of Machine Learning Research, 25(75), 1-49.</AnnotationVocabulary:directSource>
@@ -803,6 +923,18 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:isDefinedBy>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:isDefinedBy>
 		<skos:definition>A faithfulness proxy that states that the explanations should be sensitivie (resp. insensitive) to changes in the input that influence (resp. do not influence) the prediction</skos:definition>
 		<AnnotationVocabulary:directSource>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</AnnotationVocabulary:directSource>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&efemo;internal_weight_access_level">
+		<rdf:type rdf:resource="&efemo;Model_Access_Level"/>
+		<rdfs:label>Internal Weight Access Level</rdfs:label>
+		<efemo:higher_access_level rdf:resource="&efemo;inference_access_level"/>
+		<skos:definition>A copy of all the internal weights of the model must be available to the faithfulness measure.</skos:definition>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&efemo;linear_classification_explanation_modality">
+		<rdf:type rdf:resource="&efemo;Feature_Based_Modality"/>
+		<rdfs:label>Linear Classification Explanation Modality</rdfs:label>
 	</owl:NamedIndividual>
 	
 	<owl:NamedIndividual rdf:about="&efemo;linearity_assumption">
@@ -945,6 +1077,16 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 			<rdf:Description rdf:about="&efemo;faithfulness_measure_uses_proxy">
 			</rdf:Description>
 			<rdf:Description rdf:about="&efemo;proxy_requires_access_level">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&efemo;measure_evaluates_explanations">
+			</rdf:Description>
+			<rdf:Description rdf:about="https://www.omg.org/spec/Commons/Collections/comprises">
+			</rdf:Description>
+			<rdf:Description rdf:about="&prov;wasGeneratedBy">
+			</rdf:Description>
+			<rdf:Description rdf:about="&efemo;explanation_generation_method_requires_access_level">
 			</rdf:Description>
 		</owl:propertyChainAxiom>
 		<owl:propertyChainAxiom rdf:parseType="Collection">
@@ -1112,6 +1254,13 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:synonym>Leave-one-out Explanation Modality</AnnotationVocabulary:synonym>
 	</owl:NamedIndividual>
 	
+	<owl:NamedIndividual rdf:about="&efemo;output_logit_access_level">
+		<rdf:type rdf:resource="&efemo;Model_Access_Level"/>
+		<rdfs:label>Output Logit Access Level</rdfs:label>
+		<efemo:higher_access_level rdf:resource="&efemo;inference_access_level"/>
+		<skos:definition>The output logits of the model for each inference must be available to the faithfulness measure.</skos:definition>
+	</owl:NamedIndividual>
+	
 	<owl:NamedIndividual rdf:about="&efemo;polarity_consistency_proxy">
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdf:type rdf:resource="&efemo;Feature-based_Faithfulness_Proxy"/>
@@ -1141,6 +1290,11 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
 	
+	<owl:NamedIndividual rdf:about="&efemo;predict_then_explain_explanation_modality">
+		<rdf:type rdf:resource="&efemo;Natural_Language_Modality"/>
+		<rdfs:label>Predict-then-Explain Explanation Modality</rdfs:label>
+	</owl:NamedIndividual>
+	
 	<owl:NamedIndividual rdf:about="&efemo;prediction_assumption">
 		<rdf:type rdf:resource="&efemo;Assumption"/>
 		<rdfs:label>Prediction Assumption</rdfs:label>
@@ -1157,6 +1311,13 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<skos:definition>The corollary to the Prediction Assumption that an interpretation system is unfaithful if it provides different interpretations for similar inputs and outputs</skos:definition>
 		<AnnotationVocabulary:directSource>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
+	
+	<owl:ObjectProperty rdf:about="&efemo;produces_modality">
+		<rdfs:label>Produces Modality</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Explanation_Generation_Method"/>
+		<rdfs:range rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
+		<skos:definition>Specifies the modality of an explanation produced by an explanation generation method</skos:definition>
+	</owl:ObjectProperty>
 	
 	<owl:NamedIndividual rdf:about="&efemo;propogation_based_explanation_modality">
 		<rdf:type rdf:resource="&efemo;Feature_Based_Modality"/>
@@ -1315,6 +1476,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:Class rdf:about="&efemo;surrogate_model_method">
 		<rdfs:subClassOf rdf:resource="&efemo;Computational_Based_Evaluation_Method"/>
+		<rdfs:subClassOf rdf:resource="&efemo;Model_Comparison_Evaluation_Method"/>
 		<rdfs:subClassOf>
 			<owl:Restriction>
 				<owl:onProperty rdf:resource="&efemo;method_requires_access_level"/>
@@ -1339,11 +1501,26 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Arya, V., Bellamy, R. K., Chen, P. Y., Dhurandhar, A., Hind, M., Hoffman, S. C., ... &amp; Zhang, Y. (2019). One explanation does not fit all: A toolkit and taxonomy of ai explainability techniques. arXiv preprint arXiv:1909.03012.</AnnotationVocabulary:directSource>
 	</owl:Class>
 	
+	<owl:ObjectProperty rdf:about="&efemo;tested_with">
+		<rdfs:label>Tested With</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
+		<rdfs:range rdf:resource="&efemo;Dataset"/>
+		<owl:inverseOf rdf:resource="&efemo;used_to_test"/>
+		<skos:definition>Specifies a dataset used as a basis for the evaluation of a faithfulness measure</skos:definition>
+	</owl:ObjectProperty>
+	
 	<owl:NamedIndividual rdf:about="&efemo;transformer_specific">
 		<rdf:type rdf:resource="&efemo;Model_Specific"/>
 		<rdfs:label>Transformer Specific</rdfs:label>
 		<skos:definition>The model specificity of targeting transformer-based models</skos:definition>
 	</owl:NamedIndividual>
+	
+	<owl:ObjectProperty rdf:about="&efemo;used_to_test">
+		<rdfs:label>Used to Test</rdfs:label>
+		<rdfs:domain rdf:resource="&efemo;Dataset"/>
+		<rdfs:range rdf:resource="&efemo;Faithfulness_Measure"/>
+		<skos:definition>Specifies a faithfulness measure that used a dataset as a basis for evaluation</skos:definition>
+	</owl:ObjectProperty>
 	
 	<owl:AnnotationProperty rdf:about="&ontologies;higher_access_level">
 	</owl:AnnotationProperty>
@@ -1362,6 +1539,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:subPropertyOf rdf:resource="http://semanticscience.org/resource/SIO_000008"/>
 		<rdfs:label>has presentation</rdfs:label>
 		<dc:description>a property that captures what form of output an entity a is presented in</dc:description>
+		<owl:propertyChainAxiom rdf:parseType="Collection">
+			<rdf:Description rdf:about="&prov;wasGeneratedBy">
+			</rdf:Description>
+			<rdf:Description rdf:about="&efemo;produces_modality">
+			</rdf:Description>
+		</owl:propertyChainAxiom>
 	</owl:ObjectProperty>
 	
 	<owl:Class rdf:about="https://www.omg.org/spec/Commons/Documents/Document">
