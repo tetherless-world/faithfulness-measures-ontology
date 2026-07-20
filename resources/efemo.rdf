@@ -251,8 +251,8 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:Class rdf:about="&efemo;Explicit_Rule_Based_Modality">
 		<rdfs:subClassOf rdf:resource="https://purl.org/heals/eo#ExplanationModality"/>
-		<rdfs:label>An explanation modality that is a set of rules that predicts how a model responds based on the input</rdfs:label>
 		<rdfs:label>Explicit Rule-based Modality</rdfs:label>
+		<skos:definition>An explanation modality that is a set of rules that predicts how a model responds based on the input</skos:definition>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&efemo;Faithfulness_Measure">
