@@ -236,16 +236,16 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:isDefinedBy>Merriam-Webster: Generate, Definition 1b: https://www.merriam-webster.com/dictionary/generate</rdfs:isDefinedBy>
 		<skos:definition>A defined process that creates an explanation</skos:definition>
 		<skos:example>{
-&quot;name&quot;: Chain of Thought prompting
-&quot;model access needed&quot;: inference access
-&quot;explanation modality&quot;: natural language, explain-then-predict
-&quot;reference&quot;: Wei, J., Wang, X., Schuurmans, D., Bosma, M., Xia, F., Chi, E., ... &amp; Zhou, D. (2022). Chain-of-thought prompting elicits reasoning in large language models. Advances in neural information processing systems, 35, 24824-24837.
+&quot;name&quot;: &quot;Chain of Thought prompting&quot;,
+&quot;model access needed&quot;: &quot;inference access&quot;,
+&quot;explanation modality&quot;: [&quot;natural language&quot;, &quot;explain-then-predict&quot;],
+&quot;reference&quot;: &quot;Wei, J., Wang, X., Schuurmans, D., Bosma, M., Xia, F., Chi, E., ... &amp; Zhou, D. (2022). Chain-of-thought prompting elicits reasoning in large language models. Advances in neural information processing systems, 35, 24824-24837.&quot;
 }</skos:example>
 		<skos:example>{
-&quot;name&quot;: LIME
-&quot;model access needed&quot;: internal weight access
-&quot;explanation modality&quot;: feature attribution, local approximation
-&quot;reference&quot;: Ribeiro, M. T., Singh, S., &amp; Guestrin, C. (2016, August). &quot; Why should i trust you?&quot; Explaining the predictions of any classifier. In Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining (pp. 1135-1144).
+&quot;name&quot;: &quot;LIME&quot;,
+&quot;model access needed&quot;: &quot;internal weight access&quot;,
+&quot;explanation modality&quot;: [&quot;feature attribution&quot;, &quot;local approximation&quot;],
+&quot;reference&quot;: &quot;Ribeiro, M. T., Singh, S., &amp; Guestrin, C. (2016, August). &quot; Why should i trust you?&quot; Explaining the predictions of any classifier. In Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining (pp. 1135-1144).&quot;
 }</skos:example>
 	</owl:Class>
 	
