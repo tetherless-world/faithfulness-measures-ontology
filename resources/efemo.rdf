@@ -574,6 +574,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:NamedIndividual rdf:about="&efemo;anchor_based_explanation_modality">
 		<rdf:type rdf:resource="&efemo;Explicit_Rule_Based_Modality"/>
+		<rdfs:label>Anchor-based Explanation Modality</rdfs:label>
 	</owl:NamedIndividual>
 	
 	<owl:ObjectProperty rdf:about="&efemo;assumed_by_faithfulness_measure">
@@ -733,6 +734,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:NamedIndividual rdf:about="&efemo;decision_tree_explanation_modality">
 		<rdf:type rdf:resource="&efemo;Explicit_Rule_Based_Modality"/>
+		<rdfs:label>Decision Tree Explanation Modality</rdfs:label>
 	</owl:NamedIndividual>
 	
 	<owl:NamedIndividual rdf:about="&efemo;embedding_access_level">
