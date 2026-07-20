@@ -625,6 +625,18 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Leiter, C., Lertvittayakumjorn, P., Fomicheva, M., Zhao, W., Gao, Y., &amp; Eger, S. (2024). Towards explainable evaluation metrics for machine translation. Journal of Machine Learning Research, 25(75), 1-49.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
 	
+	<owl:NamedIndividual rdf:about="&efemo;cnn_specific">
+		<rdf:type rdf:resource="&efemo;Model_Specific"/>
+		<rdfs:label>CNN Specific</rdfs:label>
+		<skos:definition>The model specificity of targeting convolutional neural network models</skos:definition>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&efemo;co_attention_based_specific">
+		<rdf:type rdf:resource="&efemo;Model_Specific"/>
+		<rdfs:label>Co-Attention Specific</rdfs:label>
+		<skos:definition>The model specificity of targeting co-attention based models</skos:definition>
+	</owl:NamedIndividual>
+	
 	<owl:NamedIndividual rdf:about="&efemo;completeness_proxy">
 		<rdf:type rdf:resource="&efemo;Faithfulness_Proxy"/>
 		<rdfs:label>Completeness Proxy</rdfs:label>
@@ -735,6 +747,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:NamedIndividual rdf:about="&efemo;decision_tree_explanation_modality">
 		<rdf:type rdf:resource="&efemo;Explicit_Rule_Based_Modality"/>
 		<rdfs:label>Decision Tree Explanation Modality</rdfs:label>
+	</owl:NamedIndividual>
+	
+	<owl:NamedIndividual rdf:about="&efemo;dnn_specific">
+		<rdf:type rdf:resource="&efemo;Model_Specific"/>
+		<rdfs:label>DNN Specific</rdfs:label>
+		<skos:definition>The model specificity of targeting deep neural network models</skos:definition>
 	</owl:NamedIndividual>
 	
 	<owl:NamedIndividual rdf:about="&efemo;embedding_access_level">
@@ -939,6 +957,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:label>Linear Classification Explanation Modality</rdfs:label>
 	</owl:NamedIndividual>
 	
+	<owl:NamedIndividual rdf:about="&efemo;linear_classifier_specific">
+		<rdf:type rdf:resource="&efemo;Model_Specific"/>
+		<rdfs:label>Linear Classifier Specific</rdfs:label>
+		<skos:definition>The model specificity of targeting linear classification models</skos:definition>
+	</owl:NamedIndividual>
+	
 	<owl:NamedIndividual rdf:about="&efemo;linearity_assumption">
 		<rdf:type rdf:resource="&efemo;Assumption"/>
 		<rdfs:label>Linearity Assumption</rdfs:label>
@@ -972,6 +996,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Ju, Y., Zhang, Y., Yang, Z., Jiang, Z., Liu, K., &amp; Zhao, J. (2022, May). Logic traps in evaluating attribution scores. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers) (pp. 5911-5922).</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
 	
+	<owl:NamedIndividual rdf:about="&efemo;logistic_regression_specific">
+		<rdf:type rdf:resource="&efemo;Model_Specific"/>
+		<rdfs:label>Logistic Regression Specific</rdfs:label>
+		<skos:definition>The model specificity of targeting logistic regression models</skos:definition>
+	</owl:NamedIndividual>
+	
 	<owl:ObjectProperty rdf:about="&efemo;lower_access_level">
 		<rdf:type rdf:resource="&owl;TransitiveProperty"/>
 		<rdfs:label>Lower Access Level</rdfs:label>
@@ -981,10 +1011,16 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:explanatoryNote>Partial ordering</AnnotationVocabulary:explanatoryNote>
 	</owl:ObjectProperty>
 	
+	<owl:NamedIndividual rdf:about="&efemo;lrm_specific">
+		<rdf:type rdf:resource="&efemo;Model_Specific"/>
+		<rdfs:label>LRM Specific</rdfs:label>
+		<skos:definition>The model specificity of targeting large reasoning models</skos:definition>
+	</owl:NamedIndividual>
+	
 	<owl:NamedIndividual rdf:about="&efemo;lstm_specific">
 		<rdf:type rdf:resource="&efemo;Model_Specific"/>
 		<rdfs:label>LSTM Specific</rdfs:label>
-		<skos:definition>The model specificity of targeting LSTM-based models</skos:definition>
+		<skos:definition>The model specificity of targeting long short-term memory based models</skos:definition>
 	</owl:NamedIndividual>
 	
 	<owl:NamedIndividual rdf:about="&efemo;meaningful_perturbation_method">
@@ -1314,6 +1350,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</AnnotationVocabulary:directSource>
 	</owl:NamedIndividual>
 	
+	<owl:NamedIndividual rdf:about="&efemo;probabalistic_classifier_specific">
+		<rdf:type rdf:resource="&efemo;Model_Specific"/>
+		<rdfs:label>Probabalistic Classifier Specific</rdfs:label>
+		<skos:definition>The model specificity of targeting probabalistic classification models</skos:definition>
+	</owl:NamedIndividual>
+	
 	<owl:ObjectProperty rdf:about="&efemo;produces_modality">
 		<rdfs:label>Produces Modality</rdfs:label>
 		<rdfs:domain rdf:resource="&efemo;Explanation_Generation_Method"/>
@@ -1503,6 +1545,12 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<AnnotationVocabulary:directSource>Arya, V., Bellamy, R. K., Chen, P. Y., Dhurandhar, A., Hind, M., Hoffman, S. C., ... &amp; Zhang, Y. (2019). One explanation does not fit all: A toolkit and taxonomy of ai explainability techniques. arXiv preprint arXiv:1909.03012.</AnnotationVocabulary:directSource>
 	</owl:Class>
 	
+	<owl:NamedIndividual rdf:about="&efemo;svm_specific">
+		<rdf:type rdf:resource="&efemo;Model_Specific"/>
+		<rdfs:label>SVM Specific</rdfs:label>
+		<skos:definition>The model specificity of targeting support vector machines</skos:definition>
+	</owl:NamedIndividual>
+	
 	<owl:ObjectProperty rdf:about="&efemo;tested_with">
 		<rdfs:label>Tested With</rdfs:label>
 		<rdfs:domain rdf:resource="&efemo;Faithfulness_Measure"/>
@@ -1515,6 +1563,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdf:type rdf:resource="&efemo;Model_Specific"/>
 		<rdfs:label>Transformer Specific</rdfs:label>
 		<skos:definition>The model specificity of targeting transformer-based models</skos:definition>
+		<skos:example>A specificity that targets large language model</skos:example>
 	</owl:NamedIndividual>
 	
 	<owl:ObjectProperty rdf:about="&efemo;used_to_test">
