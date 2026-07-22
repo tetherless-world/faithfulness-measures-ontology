@@ -466,6 +466,9 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	<owl:Class rdf:about="&efemo;Model_Specificity">
 		<rdfs:label>Model Specificty</rdfs:label>
 		<skos:definition>How particular a faithfulness measure is to the architecture of a model</skos:definition>
+		<skos:example>{
+&quot;specificity&quot;:[&quot;CNN Specific&quot;,&quot;DNN Specific&quot;]
+}</skos:example>
 		<AnnotationVocabulary:adaptedFrom>Alangari, N., El Bachir Menai, M., Mathkour, H., &amp; Almosallam, I. (2023). Exploring evaluation methods for interpretable machine learning: A survey. Information, 14(8), 469.</AnnotationVocabulary:adaptedFrom>
 		<AnnotationVocabulary:explanatoryNote>This poperty describes whether or not the faithfulness measure is specific to the model&apos;s architecture</AnnotationVocabulary:explanatoryNote>
 	</owl:Class>
