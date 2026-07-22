@@ -248,7 +248,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 &quot;name&quot;: &quot;LIME&quot;,
 &quot;model access needed&quot;: &quot;internal weight access&quot;,
 &quot;explanation modality&quot;: [&quot;feature attribution&quot;, &quot;local approximation&quot;],
-&quot;reference&quot;: &quot;Ribeiro, M. T., Singh, S., &amp; Guestrin, C. (2016, August). &quot; Why should i trust you?&quot; Explaining the predictions of any classifier. In Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining (pp. 1135-1144).&quot;
+&quot;reference&quot;: &quot;Ribeiro, M. T., Singh, S., &amp; Guestrin, C. (2016, August). \&quot; Why should i trust you?\&quot; Explaining the predictions of any classifier. In Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining (pp. 1135-1144).&quot;
 }</skos:example>
 	</owl:Class>
 	
