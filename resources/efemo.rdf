@@ -321,6 +321,11 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:isDefinedBy>Jacovi, A., &amp; Goldberg, Y. (2020). Towards faithfully interpretable NLP systems: How should we define and evaluate faithfulness?. arXiv preprint arXiv:2004.03685.</rdfs:isDefinedBy>
 		<skos:altLabel>Faithfulness Metric</skos:altLabel>
 		<skos:definition>A technique for quantifying whether an explanation accurately represents the reasoning process behind a model&apos;s prediction</skos:definition>
+		<skos:example>{
+&quot;name&quot;:&quot;Decision Flip: Most Informative Token&quot;,
+&quot;acronym&quot;:&quot;DF:MIT&quot;,
+&quot;description&quot;:&quot;percentage of decision flips after removing the most important token&quot;
+}</skos:example>
 		<AnnotationVocabulary:synonym>Accountability Measure, Descriptive Accuracy Measure, Explanation Transparency measure, Fidelity Measure</AnnotationVocabulary:synonym>
 	</owl:Class>
 	
