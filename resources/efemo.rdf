@@ -1596,6 +1596,9 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:label>Explanation Modality</rdfs:label>
 		<dc:description>a particular form/media in which an explanation exists is expressed</dc:description>
 		<rdfs:isDefinedBy>Shruthi Chari</rdfs:isDefinedBy>
+		<skos:example>{
+&quot;modality&quot;:[&quot;Attention Map Explanation Modality&quot;, &quot;Propogation-based Explanation Modality&quot;]
+}</skos:example>
 	</owl:Class>
 	
 	<owl:ObjectProperty rdf:about="https://purl.org/heals/eo#hasPresentation">
