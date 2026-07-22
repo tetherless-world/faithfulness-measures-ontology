@@ -198,7 +198,10 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:label>Dataset</rdfs:label>
 		<rdfs:isDefinedBy>Merriam-Webster: Dataset, https://www.merriam-webster.com/dictionary/dataset</rdfs:isDefinedBy>
 		<skos:definition>a collection of data taken from a single source or intended for a single project</skos:definition>
-		<skos:example>e-SNLI [Camburu, O. M., Rocktäschel, T., Lukasiewicz, T., &amp; Blunsom, P. (2018). e-snli: Natural language inference with natural language explanations. Advances in Neural Information Processing Systems, 31.]</skos:example>
+		<skos:example>{
+&quot;name&quot;:&quot;e-SNLI&quot;,
+&quot;source&quot;:&quot;Camburu, O. M., Rocktäschel, T., Lukasiewicz, T., &amp; Blunsom, P. (2018). e-snli: Natural language inference with natural language explanations. Advances in Neural Information Processing Systems, 31.&quot;
+}</skos:example>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&efemo;Evaluation_Method">
