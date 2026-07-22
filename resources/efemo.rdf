@@ -347,6 +347,10 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<terms:source>Agarwal, C., Tanneru, S. H., &amp; Lakkaraju, H. (2024). Faithfulness vs. plausibility: On the (un) reliability of explanations from large language models. arXiv preprint arXiv:2402.04614.</terms:source>
 		<rdfs:isDefinedBy>Oxford Reference: Proxy Variable - https://www.oxfordreference.com/display/10.1093/oi/authority.20110803100351624</rdfs:isDefinedBy>
 		<skos:definition>A property used instead of faithfulness when faithfulness cannot be measured directly</skos:definition>
+		<skos:example>{
+&quot;name&quot;:&quot;self-consistency&quot;,
+&quot;definition&quot;:&quot;the model should produce explanations that never contradict each other&quot;,
+}</skos:example>
 		<AnnotationVocabulary:explanatoryNote>As faithfulness cannot currently be measured, this specifies the alternate property that is used as a substitute property or necessary condition for faithfulness</AnnotationVocabulary:explanatoryNote>
 	</owl:Class>
 	
@@ -522,7 +526,7 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 	
 	<owl:Class rdf:about="&efemo;Self_Predictive_Power_Evaluation_Method">
 		<rdfs:subClassOf rdf:resource="&efemo;Evaluation_Method"/>
-		<rdfs:label>Self-Predictive Power Evaluation Method</rdfs:label>
+		<rdfs:label>Explanation Removal Evaluation Method</rdfs:label>
 		<skos:definition>An evaluation method that compares a model&apos;s decisions when some or all of the explanation has been removed to a baseline</skos:definition>
 	</owl:Class>
 	
