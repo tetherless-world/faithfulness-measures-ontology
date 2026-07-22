@@ -424,6 +424,9 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<terms:source>Leiter, C., Lertvittayakumjorn, P., Fomicheva, M., Zhao, W., Gao, Y., &amp; Eger, S. (2024). Towards explainable evaluation metrics for machine translation. Journal of Machine Learning Research, 25(75), 1-49.</terms:source>
 		<rdfs:isDefinedBy>Lyu, Q., Apidianaki, M., &amp; Callison-Burch, C. (2024). Towards faithful model explanation in nlp: A survey. Computational Linguistics, 50(2), 657-723.</rdfs:isDefinedBy>
 		<skos:definition>The amount of model internals that must be available for a faithfulness measure to function</skos:definition>
+		<skos:example>{
+&quot;model access&quot;:[&quot;Attention Weight Access Level&quot;,&quot;Embedding Access Level&quot;,&quot;Gradient Access Level&quot;]
+}</skos:example>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&efemo;Model_Comparison_Evaluation_Method">
