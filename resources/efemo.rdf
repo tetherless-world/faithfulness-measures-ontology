@@ -214,6 +214,9 @@ In order to be complete, an explanation needs at least one antecedent event (exp
 		<rdfs:label>Evaluation Method</rdfs:label>
 		<rdfs:isDefinedBy>Merriam-Webster: Method, Definition 1ba - https://www.merriam-webster.com/dictionary/method</rdfs:isDefinedBy>
 		<skos:definition>The technique used to determine the faithfulness of the explanation(s)</skos:definition>
+		<skos:example>{
+&quot;description&quot;:&quot;iteratively removes salient features and measures model responses&quot;
+}</skos:example>
 	</owl:Class>
 	
 	<owl:Class rdf:about="&efemo;Explanation_Generation_Method">
