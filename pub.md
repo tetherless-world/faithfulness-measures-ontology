@@ -11,17 +11,19 @@ title: presentations
         <th>Conference</th>
         <th>Link(s)</th> 
     </tr> 
+-->    
     <tr>
         <td>May 2026</td>
         <td><a href="https://www.knowledgegraph.tech/">The Knowledge Graph Conference</a>, Poster Track</td>
-        <td>[Poster](#kgc26-poster), [Paper](#kgc26-paper)</td> 
+        <td><a href="#kgc26-poster">Poster</a>, <a href="#kgc26-paper">Paper</a></td>
     </tr>
 </table>
--->
 
+<!--
 | Date | Conference | Link(s) |
 | --- | --- | --- |
 | May 2026 | [The Knowledge Graph Conference](https://www.knowledgegraph.tech/) | [Poster](#kgc26-poster), [Paper](#kgc26-paper) |
+-->
 
 ### KGC'26 Poster 
 
