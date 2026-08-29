@@ -41,7 +41,11 @@ Therefore this project will develop such as ontology. For this project, the meas
     </tr>
     <tr>
         <td>Usage Scenarios, Competency Questions, Queries</td>
-        <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/ontology">Example Page</a></td> 
+        <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/examples">Examples Page</a></td> 
+    </tr>
+    <tr>
+        <td>Papers and Posters</td>
+        <td><a href="https://tetherless-world.github.io/faithfulness-measures-ontology/pub">Publications</a></td> 
     </tr>
 </table>
 
@@ -50,5 +54,3 @@ Danielle Villa*<sup>1</sup>, Maria Chang<sup>2</sup> , Deborah L. McGuinness<sup
 ### <a href="https://www.rpi.edu/"> <sup>1</sup>Rensselaer Polytechnic Institute</a> | <a href="https://research.ibm.com/science"> <sup>2</sup>IBM Research</a>
 ### *Contact at: villad4@rpi.edu 
 
-## Publications
-None so far, but stay tuned!
