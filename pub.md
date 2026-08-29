@@ -19,11 +19,6 @@ title: presentations
     </tr>
 </table>
 
-<!--
-| Date | Conference | Link(s) |
-| --- | --- | --- |
-| May 2026 | [The Knowledge Graph Conference](https://www.knowledgegraph.tech/) | [Poster](#kgc26-poster), [Paper](#kgc26-paper) |
--->
 
 ### KGC'26 Poster 
 
