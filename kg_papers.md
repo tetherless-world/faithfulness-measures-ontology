@@ -1,6 +1,6 @@
 ---
 layout: default
-title: papers
+title: kg_papers
 ---
 
 ## Papers Evaluated
