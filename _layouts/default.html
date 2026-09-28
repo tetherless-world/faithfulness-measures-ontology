@@ -3,11 +3,24 @@
 
 {% assign active_project = "base" %}
 
+{% if page.url contains "ont" %} 
+  {% assign active_project = "ont" %}
+{% endif %}
+{% if page.url contains "usecase" %} 
+  {% assign active_project = "ont" %}
+{% endif %}
+{% if page.url contains "terms" %} 
+  {% assign active_project = "ont" %}
+{% endif %}
+{% if page.url contains "examples" %} 
+  {% assign active_project = "ont" %}
+{% endif %}
+{% if page.url contains "cq_queries" %} 
+  {% assign active_project = "ont" %}
+{% endif %}
+
 {% if page.url contains "kg" %}
   {% assign active_project = "graph" %}
-{% endif %}
-{% if page.url contains "ont" || page.url contains "usecase" || page.url contains "terms" || page.url contains "examples" || page.url contains "cq_queries" %}
-  {% assign active_project = "ont" %}
 {% endif %}
 
 <head>
