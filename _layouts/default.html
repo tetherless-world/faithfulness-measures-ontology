@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="{{ site.lang | default: "en-US" }}">
 
+{% assign active_project = "base" %}
+
+{% if page.url contains "kg" %}
+  {% assign active_project = "graph" %}
+{% endif %}
+{% if page.url contains "ont" || page.url contains "usecase" || page.url contains "terms" || page.url contains "examples" || page.url contains "cq_queries" %}
+  {% assign active_project = "ont" %}
+{% endif %}
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,20 +49,36 @@
 <body>
   <div class="wrapper">
     <header class="sagegreen">
-        <h1 class="header", style="background:#000000">FMO Project</h1>
+      {% if active_project contains "base" %}
+        <h1 class="header", style="background:#000000">EFEMO Project</h1>
         <ul class="nav-menu"> <l1> <a href="{{'/' | relative_url}}"> About the Project </a> </l1> </ul>
+        <p class="section", style="background:#000000">Components</p>
+        <ul class="nav-menu"> <l1> <a href="{{'/ont' | relative_url}}"> Ontology </a> </l1> </ul>
+        <ul class="nav-menu"> <l1> <a href="{{'/kg' | relative_url}}"> Knowledge Graph </a> </l1> </ul>
+        <p class="section", style="background:#000000">Resources</p>
+        <ul class="nav-menu"> <l1> <a href="{{'/pres' | relative_url}}"> Presentations </a> </l1> </ul>
+        <ul class="nav-menu"> <l1> <a href="{{'/pub' | relative_url}}"> Publications </a> </l1> </ul>
+      {% endif %}
+      {% if active_project contains "ont" %}
+        <h1 class="header", style="background:#000000">EFEMO</h1>
+        <ul class="nav-menu"> <l1> <a href="{{'/' | relative_url}}"> &lt; Back to Project </a> </l1> </ul>
+        <ul class="nav-menu"> <l1> <a href="{{'/ont' | relative_url}}"> About the Ontology </a> </l1> </ul>
         <p class="section", style="background:#000000">Design</p>
         <ul class="nav-menu"> <l1> <a href="{{'/usecase' | relative_url}}"> Use Case </a> </l1> </ul>
         <ul class="nav-menu"> <l1> <a href="{{'/terms' | relative_url}}"> Terminology </a> </l1> </ul>
         <ul class="nav-menu"> <l1> <a href="{{'/ontology' | relative_url}}"> Ontology </a> </l1> </ul>
-        <p class="section", style="background:#000000">EFEMO-KG</p>
-        <ul class="nav-menu"> <l1> <a href="{{'/kg_papers' | relative_url}}"> Papers Dataset </a> </l1> </ul>
-        <ul class="nav-menu"> <l1> <a href="{{'/kg_prompts' | relative_url}}"> Prompts Used </a> </l1> </ul>
         <p class="section", style="background:#000000">Resources</p>
         <ul class="nav-menu"> <l1> <a href="{{'/examples' | relative_url}}"> Examples </a> </l1> </ul>
         <ul class="nav-menu"> <l1> <a href="{{'/cq_queries' | relative_url}}"> Competency Question Queries </a> </l1> </ul>
-        <ul class="nav-menu"> <l1> <a href="{{'/pres' | relative_url}}"> Presentations </a> </l1> </ul>
-        <ul class="nav-menu"> <l1> <a href="{{'/pub' | relative_url}}"> Publications </a> </l1> </ul>
+      {% endif %}
+      {% if active_project contains "graph" %}
+        <h1 class="header", style="background:#000000">EFEMO-KG</h1>
+        <ul class="nav-menu"> <l1> <a href="{{'/' | relative_url}}"> &lt; Back to Project </a> </l1> </ul>
+        <ul class="nav-menu"> <l1> <a href="{{'/kg' | relative_url}}"> About the Knowledge Graph </a> </l1> </ul>
+        <p class="section", style="background:#000000">Resources</p>
+        <ul class="nav-menu"> <l1> <a href="{{'/kg_papers' | relative_url}}"> Papers Dataset </a> </l1> </ul>
+        <ul class="nav-menu"> <l1> <a href="{{'/kg_prompts' | relative_url}}"> Prompts Used </a> </l1> </ul>
+      {% endif %}
     </header>
     <section>
       {{ content }}
